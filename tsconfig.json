@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+      "target": "es5",
+      "lib": [
+        "dom",
+        "dom.iterable",
+        "esnext"
+      ],
+      "allowJs": true,
+      "skipLibCheck": true,
+      "strict": false,
+      "forceConsistentCasingInFileNames": true,
+      "noEmit": true,
+      "noImplicitAny": false,
+      "esModuleInterop": true,
+      "module": "esnext",
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "sourceMap": true,
+      "strictFunctionTypes": false,
+      "jsx": "preserve"
+    },
+    "exclude": [
+      "node_modules"
+    ],
+    "include": [
+      "next-env.d.ts",
+      "**/*.ts",
+      "**/*.tsx", "pages/_app.js", "next.config.js", "public/lib/firebase-messaging-sw.js", "public/lib/notifications.ts", "public/lib/GetDeviceInfo.js"
+    ]
+  }
+  
