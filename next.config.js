@@ -30,7 +30,7 @@ module.exports = {
     clientSecret: "0P0cerVp24vHOsAZSWblLRmz"
   }
 }
-withImages()
+withImages({})
 withBundleAnalyzer()
 withOffline({ dontAutoRegisterSw: true })
 withCSS({
