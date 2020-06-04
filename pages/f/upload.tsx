@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
+import firebase from 'firebase'
+import { login, create } from '../../public/lib/auth'
 import '../../public/lib/firebase'
 import {
   MainContainer,
@@ -19,7 +21,22 @@ import SocialLink from '../../public/components/SocialLink'
 
 
 const Upload = () => {
-  
+  let [email, setEmail] = useState('')
+  let [password, setPassword] = useState('')
+  let [userData, setUserData] = useState({})
+
+  const auth = async () => {
+    let authResponse = await login(email, password).then(auth => {
+      setUserData(firebase.firestore().collection('users').doc(auth.user.email).get())
+      console.log(userData)
+    }).catch(err => {
+      if(err.code === "auth/user-not-found") {
+        let createdUser = create(email, password)
+      }
+    })
+    
+  }
+
   const upload = () => {
     let uploader = document.getElementById("uploader");
     let inputFile = document.getElementById("inputFile");
@@ -32,9 +49,9 @@ const Upload = () => {
       const storage = firebase.storage();
       let storageRef = storage.ref('me').child(file.name)
 
-      //upload file
+      //upload
       let task = storageRef.put(file)
-
+      //@ts-ignore
       task.on('state_changed', (snapshot) => {
         let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         //@ts-ignore
@@ -44,7 +61,14 @@ const Upload = () => {
         console.log("There was an error", err)
       }, 
       function complete() {
-        console.log('provide the new link for the image')
+      console.log(task.snapshot.metadata)
+      task.snapshot.ref.getDownloadURL().then(url => {
+        const img = new Image()
+        img.src = url
+        console.log(url)
+        console.log(img.width)
+        console.log(img.height)
+      })
       })
       
     })
@@ -74,14 +98,14 @@ const Upload = () => {
       <Position>A terrible image upload service</Position>
     <input type="file" id="inputFile" hidden={true} accept="image/*, video/*, audio/*" />
     <GetFile onClick={upload}>Click here to upload</GetFile>
-    <Uploader id="uploader"></Uploader>
+    <Uploader id="uploader" value="0" max="100"></Uploader>
     <ModalContainer>
     <AuthContainer>
       <InputBox>
           <h1 style={{color: "#fff"}}>Login/Signup</h1>
-          <Input placeholder="Email Address" type="email"></Input>
-          <Input placeholder="Password" type="password"></Input>
-          <AuthButton>Login/Sign Up</AuthButton>
+          <Input placeholder="Email Address" type="email" value={email} onChange={e => setEmail(e.target.value)}></Input>
+          <Input placeholder="Password" type="password" value={password} onChange={e => setPassword(e.target.value)}></Input>
+          <AuthButton onClick={auth}>Login/Sign Up</AuthButton>
       </InputBox>
     </AuthContainer>
     </ModalContainer>

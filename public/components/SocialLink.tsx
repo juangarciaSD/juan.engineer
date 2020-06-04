@@ -21,7 +21,7 @@ const CustomeTippy = styled(Tippy)`
 const SocialLink = (props: {href: string, tooltip?: string, className?: string, children: ReactNode}) => {
     return(
         <>
-        <a href={props.href} className={props.className}>
+        <a href={props.href} target="_blank" className={props.className}>
             <CustomeTippy content={<span>{props.tooltip}</span>} placement="bottom"duration={0} arrow={true}>
                 <SocialIcon>
                     {props.children}
