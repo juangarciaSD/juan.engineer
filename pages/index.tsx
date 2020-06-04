@@ -26,6 +26,10 @@ const Index = () => {
             overflow: hidden;
             font-family: 'Rubik', sans-serif;
           }
+
+          a {
+            padding: 5px 8px;
+          }
         `}
       </style>
     </Helmet>
@@ -35,19 +39,19 @@ const Index = () => {
       <Name>Juan Garcia</Name>
       <Position>Full-Stack Developer</Position>
       <Social>
-          <SocialLink href="#">
+          <SocialLink href="https://twitter.com/juan_garcia3708" tooltip="Twitter">
             <Twitter />
           </SocialLink>
-          <SocialLink href="#">
+          <SocialLink href="https://github.com/fangskills" tooltip="Github" className="github">
             <Github />
           </SocialLink>
-          <SocialLink href="#">
+          {/* <SocialLink href="#" tooltip="Discord" className="discord">
             <Discord />
-          </SocialLink>
-          <SocialLink href="#">
+          </SocialLink> */}
+          <SocialLink href="https://www.linkedin.com/in/juan-garcia-029161198/" tooltip="Linkedin" className="linkedin">
             <Linkedin />
           </SocialLink>
-          <SocialLink href="#">
+          <SocialLink href="https://notify.me/fangskillz" tooltip="Notify" className="notify">
             <Notify />
           </SocialLink>
       </Social>

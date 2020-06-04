@@ -2,6 +2,9 @@ import NextApp from 'next/app'
 import React from 'react'
 import firebase from 'firebase'
 import { ThemeProvider } from 'styled-components'
+import 'tippy.js/dist/backdrop.css';
+import 'tippy.js/animations/shift-away.css';
+import 'tippy.js/dist/svg-arrow.css'
 const theme = {
   primary: 'green',
 }

@@ -47,7 +47,7 @@ export const Position = styled.h4`
 
 export const Social = styled.div`
     margin-top: 15px;
-    padding: 0px 10px;
+    padding: 5px 10px;
     border: 1px solid #fff;
     display: flex;
     justify-content: center;
@@ -57,7 +57,6 @@ export const SocialIcon = styled.div`
     width: 25px;
     height: 25px;
     color: #fff;
-    padding: 10px;
     fill: #fff;
     transition: fill 1s ease-in-out;
 
