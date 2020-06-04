@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
 import firebase from 'firebase'
 import { login, create } from '../../public/lib/auth'
+import { genId } from '../../public/lib/genId'
 import '../../public/lib/firebase'
 import {
   MainContainer,
@@ -23,21 +24,43 @@ import SocialLink from '../../public/components/SocialLink'
 const Upload = () => {
   let [email, setEmail] = useState('')
   let [password, setPassword] = useState('')
+  let [userAuthenticated, setUserAuth] = useState(false)
   let [userData, setUserData] = useState({})
 
+  let publicImagesId = firebase.firestore().collection('public');
+
+  firebase.auth().onAuthStateChanged(user => {
+    if(user) {
+      setUserAuth(true)
+      setUserData(localStorage.getItem("user"))
+    } else {
+      setUserAuth(false)
+      localStorage.clear()
+      setUserData({})
+    }
+  })
+
   const auth = async () => {
-    let authResponse = await login(email, password).then(auth => {
-      setUserData(firebase.firestore().collection('users').doc(auth.user.email).get())
-      console.log(userData)
+    await login(email, password).then(auth => {
+      firebase.firestore().collection('users').doc(auth.user.email).get().then(doc => {
+        localStorage.setItem("user", JSON.stringify(doc.data()));
+        setUserData(localStorage.getItem("user"))
+      })
+      setUserAuth(true)
     }).catch(err => {
       if(err.code === "auth/user-not-found") {
         let createdUser = create(email, password)
+        setUserAuth(true)
       }
     })
     
   }
 
   const upload = () => {
+    if(userData === {} || firebase.auth().currentUser === null) {
+      setUserAuth(false)
+    }
+
     let uploader = document.getElementById("uploader");
     let inputFile = document.getElementById("inputFile");
     inputFile.click()
@@ -47,7 +70,8 @@ const Upload = () => {
       var file = e.target.files[0];
       //@ts-ignore
       const storage = firebase.storage();
-      let storageRef = storage.ref('me').child(file.name)
+      //@ts-ignore
+      let storageRef = storage.ref(userData.email).child(file.name)
 
       //upload
       let task = storageRef.put(file)
@@ -63,11 +87,24 @@ const Upload = () => {
       function complete() {
       console.log(task.snapshot.metadata)
       task.snapshot.ref.getDownloadURL().then(url => {
-        const img = new Image()
-        img.src = url
-        console.log(url)
-        console.log(img.width)
-        console.log(img.height)
+        let fileId = genId()
+        let checkId = publicImagesId.doc(fileId).get().then(doc => {
+          if(doc && doc.exists) {
+            fileId = genId()
+          }
+          return fileId
+        })
+        let fileObject = {
+          files: [{
+            id: fileId,
+            downloadURL: url,
+            imageURL: 'soon'
+          }]
+        }
+
+        firebase.firestore().collection('public').doc(fileId).set(fileObject)
+        //@ts-ignore
+        firebase.firestore().collection('users').doc(userData.email).update(fileObject)
       })
       })
       
@@ -99,10 +136,10 @@ const Upload = () => {
     <input type="file" id="inputFile" hidden={true} accept="image/*, video/*, audio/*" />
     <GetFile onClick={upload}>Click here to upload</GetFile>
     <Uploader id="uploader" value="0" max="100"></Uploader>
-    <ModalContainer>
+    <ModalContainer display={userAuthenticated}>
     <AuthContainer>
       <InputBox>
-          <h1 style={{color: "#fff"}}>Login/Signup</h1>
+          <h1 style={{color: "#fff"}}>Login/Sign Up</h1>
           <Input placeholder="Email Address" type="email" value={email} onChange={e => setEmail(e.target.value)}></Input>
           <Input placeholder="Password" type="password" value={password} onChange={e => setPassword(e.target.value)}></Input>
           <AuthButton onClick={auth}>Login/Sign Up</AuthButton>

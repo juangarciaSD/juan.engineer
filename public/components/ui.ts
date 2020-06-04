@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import UIProps from './ui.interface'
 
 export const MainContainer = styled.div`
     width: 100%;
@@ -106,8 +107,9 @@ export const Uploader = styled.progress`
 `
 
 //auth screen
-export const ModalContainer = styled.div`
+export const ModalContainer = styled.div<UIProps>`
     width: 100vw;
+    display: ${props => props.display ? 'none' : 'block'};
     height: 100vh;
     position: absolute;
     background-color: rgba(0, 0, 0, 0.65);
