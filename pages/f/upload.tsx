@@ -31,8 +31,8 @@ const Upload = () => {
       let task = storageRef.put(file)
 
       task.on('state_changed', (snapshot) => {
-        //@ts-ignore
         let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        //@ts-ignore
         uploader.value = percentage
       },
       function error(err) {
