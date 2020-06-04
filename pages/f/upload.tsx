@@ -23,6 +23,7 @@ const Upload = () => {
     inputFile.addEventListener("change", (e) => {
       //@ts-ignore
       var file = e.target.files[0];
+      //@ts-ignore
       const storage = firebase.storage();
       let storageRef = storage.ref('me').child(file.name)
 
@@ -30,6 +31,7 @@ const Upload = () => {
       let task = storageRef.put(file)
 
       task.on('state_changed', (snapshot) => {
+        //@ts-ignore
         let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         uploader.value = percentage
       },
