@@ -107,7 +107,7 @@ export const Uploader = styled.progress`
 
 //auth screen
 export const ModalContainer = styled.div`
-    width: 150vh;
+    width: 100vw;
     height: 100vh;
     position: absolute;
     background-color: rgba(0, 0, 0, 0.65);
