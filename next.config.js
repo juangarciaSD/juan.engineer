@@ -17,14 +17,14 @@ module.exports = {
     return config
   },
   env: {
-    apiKey: "AIzaSyC5bjC8_lMCtfQrHhUudTh-TffGJWiLIuc",
-    authDomain: "school-public-app.firebaseapp.com",
-    databaseURL: "https://school-public-app.firebaseio.com",
-    projectId: "school-public-app",
-    storageBucket: "school-public-app.appspot.com",
-    messagingSenderId: "673458185679",
-    appId: "1:673458185679:web:13306a171aaa71bad01eba",
-    measurementId: "G-JVEZQPNBTG",
+    apiKey: "AIzaSyBXUC_xgFkUrE6rupZbtA7Q8iAseYV-EHM",
+    authDomain: "tech-me-main.firebaseapp.com",
+    databaseURL: "https://tech-me-main.firebaseio.com",
+    projectId: "tech-me-main",
+    storageBucket: "gs://juan.engineer",
+    messagingSenderId: "265745515598",
+    appId: "1:265745515598:web:a594aa7f20c5b0be3cef1f",
+    measurementId: "G-FTMP58FLFV",
     notificationKey: "BCbIHkaJuwqApqu2g7M_vy86CZzIPcj4yrQ9M180eM-ufTXuYxbNHws8IrFj0C2XnV2QfN_ew-iXoS4Synfjy2w",
     clientId: "673458185679-hs4bdnvq29lg2onvf4a5kd0ivhj10f6g.apps.googleusercontent.com",
     clientSecret: "0P0cerVp24vHOsAZSWblLRmz"

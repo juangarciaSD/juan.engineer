@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const MainContainer = styled.div`
     width: 100%;
     height: 100vh;
-    background-image: url("https://firebasestorage.googleapis.com/v0/b/tech-me-main.appspot.com/o/me-background.png?alt=media&token=0428b951-9f66-4f6e-b4cf-35a6a2f16d57");
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/tech-me-main.appspot.com/o/website%2Fme-background.jpg?alt=media&token=3ae5fb32-e92c-43e0-a24c-4b8d0387142f");
     background-repeat: no-repeat;
     background-size: cover;
     filter: blur(8px);
@@ -79,4 +79,28 @@ export const SocialIcon = styled.div`
     .notify-icon:hover {
         fill: #25b0ed;
     }
+`
+
+//upload service
+export const GetFile = styled.button`
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    color: #fff;
+    background-color: transparent;
+    border: 1px solid #25b0ed;
+    border-radius: 10px;
+    transition: 200ms ease-in-out;
+    outline: none;
+
+    :hover {
+        cursor: pointer;
+        background-color: #25b0ed;
+    }
+`
+
+export const Uploader = styled.progress`
+    appearance: none;
+    width: 100%;
+    margin-top: 10px;
 `
