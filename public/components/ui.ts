@@ -104,3 +104,75 @@ export const Uploader = styled.progress`
     width: 100%;
     margin-top: 10px;
 `
+
+//auth screen
+export const ModalContainer = styled.div`
+    width: 150vh;
+    height: 100vh;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.65);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
+
+export const AuthContainer = styled.div`
+    width: 350px;
+    position: absolute;
+    text-align: center;
+    justify-content: center;
+    background-color: #121212;
+    align-content: center;
+    border-radius: 15px;
+    padding: 50px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
+
+export const InputBox = styled.div`
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    background-color: #121212;
+    border-radius: 15px;
+    padding: 15px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`
+
+export const Input = styled.input`
+    width: 100%;
+    display: block;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    box-sizing: border-box;
+    letter-spacing: .25px;
+    padding: 15px;
+    color: #fff;
+    margin: 15px 0;
+    background-color: #242424;
+    border: 3px solid #242424;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+`
+
+export const AuthButton = styled.button`
+    width: 100%;
+    padding: 10px;
+    color: #fff;
+    font-size: 15px;
+    background-color: transparent;
+    border: 1px solid #25b0ed;
+    border-radius: 10px;
+    transition: 250ms ease-in-out;
+
+    :hover {
+        cursor: pointer;
+        background-color: #25b0ed;
+    }
+`

@@ -8,7 +8,12 @@ import {
   Name, 
   Position,
   GetFile,
-  Uploader
+  Uploader,
+  ModalContainer,
+  AuthContainer,
+  InputBox,
+  Input,
+  AuthButton
 } from '../../public/components/ui'
 import SocialLink from '../../public/components/SocialLink'
 
@@ -70,6 +75,16 @@ const Upload = () => {
     <input type="file" id="inputFile" hidden={true} accept="image/*, video/*, audio/*" />
     <GetFile onClick={upload}>Click here to upload</GetFile>
     <Uploader id="uploader"></Uploader>
+    <ModalContainer>
+    <AuthContainer>
+      <InputBox>
+          <h1 style={{color: "#fff"}}>Login/Signup</h1>
+          <Input placeholder="Email Address" type="email"></Input>
+          <Input placeholder="Password" type="password"></Input>
+          <AuthButton>Login/Sign Up</AuthButton>
+      </InputBox>
+    </AuthContainer>
+    </ModalContainer>
     </Container>
     </>
   )
