@@ -163,8 +163,10 @@ export const Input = styled.input`
     outline: none;
 `
 
-export const AuthButton = styled.button`
-    width: 100%;
+export const AuthButton = styled.button<UIProps>`
+    width: 50%;
+    display: block;
+    margin: 0 auto;
     padding: 10px;
     color: #fff;
     font-size: 15px;
@@ -172,6 +174,8 @@ export const AuthButton = styled.button`
     border: 1px solid #25b0ed;
     border-radius: 10px;
     transition: 250ms ease-in-out;
+    margin-left: ${props => props.marginL || "0px"};
+    margin-right: ${props => props.marginR || "0px"};
 
     :hover {
         cursor: pointer;

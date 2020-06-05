@@ -1,3 +1,5 @@
 export default interface UIProps {
-    display?: boolean
+    display?: boolean,
+    marginL?: string,
+    marginR?: string
 }

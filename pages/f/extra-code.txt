@@ -1,0 +1,82 @@
+// let publicImagesId = firebase.firestore().collection('public');
+
+  // useEffect(() => {
+  //   firebase.auth().onAuthStateChanged(user => {
+  //     if(user) {
+  //       setUserAuth(true)
+  //     } else {
+  //       setUserAuth(false)
+  //       setUserData({})
+  //     }
+  //   })
+  // })
+
+  // const auth = async () => {
+  //   await login(email, password).then(auth => {
+  //     firebase.firestore().collection('users').doc(auth.user.email).get().then(doc => {
+        
+  //     })
+  //     setUserAuth(true)
+  //   }).catch(err => {
+  //     if(err.code === "auth/user-not-found") {
+  //       let createdUser = create(email, password)
+  //       setUserAuth(true)
+  //     }
+  //   })
+    
+  // }
+
+  // const upload = () => {
+  //   if(userData === {} || firebase.auth().currentUser === null) {
+  //     setUserAuth(false)
+  //   }
+
+  //   let uploader = document.getElementById("uploader");
+  //   let inputFile = document.getElementById("inputFile");
+  //   inputFile.click()
+
+  //   inputFile.addEventListener("change", (e) => {
+  //     //@ts-ignore
+  //     var file = e.target.files[0];
+  //     //@ts-ignore
+  //     const storage = firebase.storage();
+  //     //@ts-ignore
+  //     let storageRef = storage.ref(userData.email).child(file.name)
+
+  //     //upload
+  //     let task = storageRef.put(file)
+  //     //@ts-ignore
+  //     task.on('state_changed', (snapshot) => {
+  //       let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+  //       //@ts-ignore
+  //       uploader.value = percentage
+  //     },
+  //     function error(err) {
+  //       console.log("There was an error", err)
+  //     }, 
+  //     function complete() {
+  //     console.log(task.snapshot.metadata)
+  //     task.snapshot.ref.getDownloadURL().then(url => {
+  //       let fileId = genId()
+  //       let checkId = publicImagesId.doc(fileId).get().then(doc => {
+  //         if(doc && doc.exists) {
+  //           fileId = genId()
+  //         }
+  //         return fileId
+  //       })
+  //       let fileObject = {
+  //         files: [{
+  //           id: fileId,
+  //           downloadURL: url,
+  //           imageURL: 'soon'
+  //         }]
+  //       }
+
+  //       firebase.firestore().collection('public').doc(fileId).set(fileObject)
+  //       //@ts-ignore
+  //       firebase.firestore().collection('users').doc(userData.email).update(fileObject)
+  //     })
+  //     })
+      
+  //   })
+  // }

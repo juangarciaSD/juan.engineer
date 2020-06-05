@@ -28,10 +28,55 @@ const Upload = () => {
   let [email, setEmail] = useState('')
   let [password, setPassword] = useState('')
   let [userAuthenticated, setUserAuth] = useState(false)
-  let [userData, setUserData] = useState({})
 
-  const auth = () => {
-    
+  //current user
+  let [userEmail, setUserEmail] = useState('')
+  let [userData, setUserData] = useState({})
+ 
+  function onAuthStateChange() {
+    return firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        console.log("The user is logged in");
+        getUserData(user)
+        setUserEmail(user.email)
+        setUserAuth(true)
+      } else {
+        setUserEmail('')
+        setUserData({})
+        setUserAuth(false)
+        console.log("The user is not logged in");
+      }
+    });
+  }
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChange();
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const getUserData = async(user: firebase.User) => {
+    setUserEmail(user.email)
+    firebase.firestore().collection('user').doc(user.email).get().then(doc => {
+      setUserData(JSON.stringify(doc.data()))
+    })
+  }
+
+  const auth = async() => {
+    await login(email, password).then(auth => {
+      firebase.firestore().collection('users').doc(auth.user.email).get().then(doc => {
+        setUserData(JSON.stringify(doc.data()))
+      })
+    })
+  }
+
+  const createUser = async() => {
+    await create(email, password).then(auth => {
+      firebase.firestore().collection('users').doc(auth.user.email).get().then(doc => {
+        setUserData(JSON.stringify(doc.data()))
+      })
+    })
   }
 
   const upload = () => {
@@ -43,93 +88,45 @@ const Upload = () => {
       var file = e.target.files[0];
 
       const storage = firebase.storage();
-      const ref = storage.ref(userData.email).child(file.name);
+      const ref = storage.ref(userEmail).child(file.name);
+
+      const task = ref.put(file)
+
+      task.on("state_changed", (snapshot) => {
+        var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        //@ts-ignore
+        uploader.value = percentage
+      },
+      function error(err) {
+        console.log("Error:", err)
+      },
+      async function complete() {
+        let downloadLink = ""
+        let generatedId = ""
+        generatedId = genId()
+        await firebase.firestore().collection('public').doc(generatedId).get().then(doc => {
+          if(doc && doc.exists) {
+            generatedId = genId()
+          }
+        })
+        await task.snapshot.ref.getDownloadURL().then(url => {
+          downloadLink = url
+        })
+        const userData = {
+          email: userEmail,
+          files: [{
+            _id: generatedId,
+            downloadURL: downloadLink,
+            imagePath: 'soon'
+          }]
+        }
+        //upload file and object to firebase
+        await firebase.firestore().collection('public').doc(generatedId).set({files: userData.files})
+        await firebase.firestore().collection('users').doc(userEmail).set({files: [{_id: generatedId, downloadURL: downloadLink, imagePath: 'soon'}]})
+      })
 
     })
   }
-
-  // let publicImagesId = firebase.firestore().collection('public');
-
-  // useEffect(() => {
-  //   firebase.auth().onAuthStateChanged(user => {
-  //     if(user) {
-  //       setUserAuth(true)
-  //     } else {
-  //       setUserAuth(false)
-  //       setUserData({})
-  //     }
-  //   })
-  // })
-
-  // const auth = async () => {
-  //   await login(email, password).then(auth => {
-  //     firebase.firestore().collection('users').doc(auth.user.email).get().then(doc => {
-        
-  //     })
-  //     setUserAuth(true)
-  //   }).catch(err => {
-  //     if(err.code === "auth/user-not-found") {
-  //       let createdUser = create(email, password)
-  //       setUserAuth(true)
-  //     }
-  //   })
-    
-  // }
-
-  // const upload = () => {
-  //   if(userData === {} || firebase.auth().currentUser === null) {
-  //     setUserAuth(false)
-  //   }
-
-  //   let uploader = document.getElementById("uploader");
-  //   let inputFile = document.getElementById("inputFile");
-  //   inputFile.click()
-
-  //   inputFile.addEventListener("change", (e) => {
-  //     //@ts-ignore
-  //     var file = e.target.files[0];
-  //     //@ts-ignore
-  //     const storage = firebase.storage();
-  //     //@ts-ignore
-  //     let storageRef = storage.ref(userData.email).child(file.name)
-
-  //     //upload
-  //     let task = storageRef.put(file)
-  //     //@ts-ignore
-  //     task.on('state_changed', (snapshot) => {
-  //       let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-  //       //@ts-ignore
-  //       uploader.value = percentage
-  //     },
-  //     function error(err) {
-  //       console.log("There was an error", err)
-  //     }, 
-  //     function complete() {
-  //     console.log(task.snapshot.metadata)
-  //     task.snapshot.ref.getDownloadURL().then(url => {
-  //       let fileId = genId()
-  //       let checkId = publicImagesId.doc(fileId).get().then(doc => {
-  //         if(doc && doc.exists) {
-  //           fileId = genId()
-  //         }
-  //         return fileId
-  //       })
-  //       let fileObject = {
-  //         files: [{
-  //           id: fileId,
-  //           downloadURL: url,
-  //           imageURL: 'soon'
-  //         }]
-  //       }
-
-  //       firebase.firestore().collection('public').doc(fileId).set(fileObject)
-  //       //@ts-ignore
-  //       firebase.firestore().collection('users').doc(userData.email).update(fileObject)
-  //     })
-  //     })
-      
-  //   })
-  // }
 
   return(
     <>
@@ -162,7 +159,10 @@ const Upload = () => {
           <h1 style={{color: "#fff"}}>Login/Sign Up</h1>
           <Input placeholder="Email Address" type="email" value={email} onChange={e => setEmail(e.target.value)}></Input>
           <Input placeholder="Password" type="password" value={password} onChange={e => setPassword(e.target.value)}></Input>
-          <AuthButton onClick={auth}>Login/Sign Up</AuthButton>
+          <div style={{textAlign: "center", display: "flex"}}>
+            <AuthButton marginR="10px" onClick={auth}>Login</AuthButton>
+            <AuthButton marginL="10px" onClick={createUser}>Create</AuthButton>
+          </div>
       </InputBox>
     </AuthContainer>
     </ModalContainer>
