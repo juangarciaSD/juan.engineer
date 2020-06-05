@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import firebase from 'firebase'
 import { login, create } from '../../public/lib/auth'
@@ -20,6 +20,9 @@ import {
 } from '../../public/components/ui'
 import SocialLink from '../../public/components/SocialLink'
 
+interface HTMLInputEvent extends Event {
+  target: HTMLInputElement & EventTarget
+}
 
 const Upload = () => {
   let [email, setEmail] = useState('')
@@ -27,89 +30,106 @@ const Upload = () => {
   let [userAuthenticated, setUserAuth] = useState(false)
   let [userData, setUserData] = useState({})
 
-  let publicImagesId = firebase.firestore().collection('public');
-
-  firebase.auth().onAuthStateChanged(user => {
-    if(user) {
-      setUserAuth(true)
-      setUserData(localStorage.getItem("user"))
-    } else {
-      setUserAuth(false)
-      localStorage.clear()
-      setUserData({})
-    }
-  })
-
-  const auth = async () => {
-    await login(email, password).then(auth => {
-      firebase.firestore().collection('users').doc(auth.user.email).get().then(doc => {
-        localStorage.setItem("user", JSON.stringify(doc.data()));
-        setUserData(localStorage.getItem("user"))
-      })
-      setUserAuth(true)
-    }).catch(err => {
-      if(err.code === "auth/user-not-found") {
-        let createdUser = create(email, password)
-        setUserAuth(true)
-      }
-    })
+  const auth = () => {
     
   }
 
   const upload = () => {
-    if(userData === {} || firebase.auth().currentUser === null) {
-      setUserAuth(false)
-    }
-
-    let uploader = document.getElementById("uploader");
-    let inputFile = document.getElementById("inputFile");
+    const uploader = document.getElementById("uploader");
+    const inputFile = document.getElementById("inputFile");
     inputFile.click()
 
-    inputFile.addEventListener("change", (e) => {
-      //@ts-ignore
+    inputFile.addEventListener("change", (e: HTMLInputEvent) => {
       var file = e.target.files[0];
-      //@ts-ignore
+
       const storage = firebase.storage();
-      //@ts-ignore
-      let storageRef = storage.ref(userData.email).child(file.name)
+      const ref = storage.ref(userData.email).child(file.name);
 
-      //upload
-      let task = storageRef.put(file)
-      //@ts-ignore
-      task.on('state_changed', (snapshot) => {
-        let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        //@ts-ignore
-        uploader.value = percentage
-      },
-      function error(err) {
-        console.log("There was an error", err)
-      }, 
-      function complete() {
-      console.log(task.snapshot.metadata)
-      task.snapshot.ref.getDownloadURL().then(url => {
-        let fileId = genId()
-        let checkId = publicImagesId.doc(fileId).get().then(doc => {
-          if(doc && doc.exists) {
-            fileId = genId()
-          }
-          return fileId
-        })
-        let fileObject = {
-          files: [{
-            id: fileId,
-            downloadURL: url,
-            imageURL: 'soon'
-          }]
-        }
-
-        firebase.firestore().collection('public').doc(fileId).set(fileObject)
-        //@ts-ignore
-        firebase.firestore().collection('users').doc(userData.email).update(fileObject)
-      })
-      })
-      
     })
   }
+
+  // let publicImagesId = firebase.firestore().collection('public');
+
+  // useEffect(() => {
+  //   firebase.auth().onAuthStateChanged(user => {
+  //     if(user) {
+  //       setUserAuth(true)
+  //     } else {
+  //       setUserAuth(false)
+  //       setUserData({})
+  //     }
+  //   })
+  // })
+
+  // const auth = async () => {
+  //   await login(email, password).then(auth => {
+  //     firebase.firestore().collection('users').doc(auth.user.email).get().then(doc => {
+        
+  //     })
+  //     setUserAuth(true)
+  //   }).catch(err => {
+  //     if(err.code === "auth/user-not-found") {
+  //       let createdUser = create(email, password)
+  //       setUserAuth(true)
+  //     }
+  //   })
+    
+  // }
+
+  // const upload = () => {
+  //   if(userData === {} || firebase.auth().currentUser === null) {
+  //     setUserAuth(false)
+  //   }
+
+  //   let uploader = document.getElementById("uploader");
+  //   let inputFile = document.getElementById("inputFile");
+  //   inputFile.click()
+
+  //   inputFile.addEventListener("change", (e) => {
+  //     //@ts-ignore
+  //     var file = e.target.files[0];
+  //     //@ts-ignore
+  //     const storage = firebase.storage();
+  //     //@ts-ignore
+  //     let storageRef = storage.ref(userData.email).child(file.name)
+
+  //     //upload
+  //     let task = storageRef.put(file)
+  //     //@ts-ignore
+  //     task.on('state_changed', (snapshot) => {
+  //       let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+  //       //@ts-ignore
+  //       uploader.value = percentage
+  //     },
+  //     function error(err) {
+  //       console.log("There was an error", err)
+  //     }, 
+  //     function complete() {
+  //     console.log(task.snapshot.metadata)
+  //     task.snapshot.ref.getDownloadURL().then(url => {
+  //       let fileId = genId()
+  //       let checkId = publicImagesId.doc(fileId).get().then(doc => {
+  //         if(doc && doc.exists) {
+  //           fileId = genId()
+  //         }
+  //         return fileId
+  //       })
+  //       let fileObject = {
+  //         files: [{
+  //           id: fileId,
+  //           downloadURL: url,
+  //           imageURL: 'soon'
+  //         }]
+  //       }
+
+  //       firebase.firestore().collection('public').doc(fileId).set(fileObject)
+  //       //@ts-ignore
+  //       firebase.firestore().collection('users').doc(userData.email).update(fileObject)
+  //     })
+  //     })
+      
+  //   })
+  // }
 
   return(
     <>
