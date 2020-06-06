@@ -140,16 +140,16 @@ const Upload = () => {
           downloadLink = url
         })
         const userData = {
-          email: userEmail,
-          files: [{
-            _id: generatedId,
-            downloadURL: downloadLink,
-            imagePath: 'soon'
-          }]
+          "email": userEmail,
+          "files": firebase.firestore.FieldValue.arrayUnion({
+            "_id": generatedId,
+            "downloadURL": downloadLink,
+            "imagePath": 'soon'
+          })
         }
         //upload file and object to firebase
         await firebase.firestore().collection('public').doc(generatedId).set({files: userData.files})
-        await firebase.firestore().collection('users').doc(userEmail).set(userData)
+        await firebase.firestore().collection('users').doc(userEmail).update(userData)
       })
 
     })
