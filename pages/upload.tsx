@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import firebase from 'firebase'
-import { login, create } from '../../public/lib/auth'
-import { genId } from '../../public/lib/genId'
+import { login, create } from '../public/lib/auth'
+import { genId } from '../public/lib/genId'
 import {
   MainContainer,
   Container,
@@ -17,8 +17,8 @@ import {
   Input,
   AuthButton,
   Link
-} from '../../public/components/ui'
-import SocialLink from '../../public/components/SocialLink'
+} from '../public/components/ui'
+import SocialLink from '../public/components/SocialLink'
 
 interface HTMLInputEvent extends Event {
   target: HTMLInputElement & EventTarget
