@@ -24,6 +24,31 @@ interface HTMLInputEvent extends Event {
   target: HTMLInputElement & EventTarget
 }
 
+// class File {
+//   _id: string
+//   downloadLink: string
+//   imagePath: string
+//   constructor(_id, downloadLink, imagePath) {
+//     this._id = _id;
+//     this.downloadLink = downloadLink;
+//     this.imagePath = imagePath
+//   }
+// }
+
+// let fileConverter = {
+//   toFirestore: function(file) {
+//       return {
+//           _id: file._id,
+//           downloadLink: file.downloadLink,
+//           imagePath: file.imagePath
+//           }
+//   },
+//   fromFirestore: function(snapshot, options){
+//       const data = snapshot.data(options);
+//       return new File(data._id, data.downloadLink, data.imagePath)
+//   }
+// }
+
 const Upload = () => {
   let [email, setEmail] = useState('')
   let [password, setPassword] = useState('')
@@ -101,6 +126,8 @@ const Upload = () => {
         console.log("Error:", err)
       },
       async function complete() {
+        //@ts-ignore
+        uploader.value = 0
         let downloadLink = ""
         let generatedId = ""
         generatedId = genId()
@@ -122,7 +149,7 @@ const Upload = () => {
         }
         //upload file and object to firebase
         await firebase.firestore().collection('public').doc(generatedId).set({files: userData.files})
-        await firebase.firestore().collection('users').doc(userEmail).set({files: [{_id: generatedId, downloadURL: downloadLink, imagePath: 'soon'}]})
+        await firebase.firestore().collection('users').doc(userEmail).set(userData)
       })
 
     })
