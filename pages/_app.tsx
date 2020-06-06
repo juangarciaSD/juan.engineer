@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components'
 import 'tippy.js/dist/backdrop.css';
 import 'tippy.js/animations/shift-away.css';
 import 'tippy.js/dist/svg-arrow.css'
+import '../public/lib/firebase'
 const theme = {
   primary: 'green',
 }
