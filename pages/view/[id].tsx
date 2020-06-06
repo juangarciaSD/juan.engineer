@@ -14,6 +14,7 @@ const FileViewer = () => {
     const getFile = async() => {
         let queryId = router.query.id
         console.log(queryId)
+        //@ts-ignore
         await firebase.firestore().collection('public').doc(queryId).get().then(doc => {
             setImgLocation(doc.data().imagePath)
         })
