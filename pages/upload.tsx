@@ -171,6 +171,7 @@ const Upload = () => {
   return(
     <>
     <Helmet>
+      <title>Uplift - juan.engineer</title>
       <style>{`
           body {
             padding: 0;
@@ -188,8 +189,8 @@ const Upload = () => {
     <MainContainer />
     <Container>
       <Profile src="https://firebasestorage.googleapis.com/v0/b/tech-me-main.appspot.com/o/profile.jpg?alt=media&token=98b761eb-a169-4b2f-8c61-5cc8b26f541f"></Profile>
-      <Name>Upload</Name>
-      <Position>A terrible image upload service</Position>
+      <Name>Uplift</Name>
+      <Position fontWeight="500">A <b>terrible</b> image upload service</Position>
     <input type="file" id="inputFile" hidden={true} accept="image/*, video/*, audio/*" />
     <GetFile onClick={upload}>Click here to upload</GetFile>
     <Uploader id="uploader" value="0" max="100" display={linkDone}></Uploader>

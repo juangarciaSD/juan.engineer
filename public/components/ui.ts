@@ -39,11 +39,12 @@ export const Name = styled.h1`
     font-size: 4vh;
 `
 
-export const Position = styled.h4`
+export const Position = styled.h4<UIProps>`
     padding: 5px 0px;
     margin: 0px auto;
     color: #fff;
     font-size: 2vh;
+    font-weight ${props => props.fontWeight};
 `
 
 export const Social = styled.div`

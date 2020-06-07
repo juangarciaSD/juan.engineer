@@ -22,6 +22,7 @@ const FileViewer = () => {
 
     return (
         <>
+            <title>View File - juan.engineer</title>
             <Helmet>
                 <style>{`
             body {
