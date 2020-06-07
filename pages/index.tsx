@@ -18,6 +18,7 @@ const Index = () => {
   return(
     <>
     <Helmet>
+      <title>Home - juan.engineer</title>
       <style>{`
           body {
             padding: 0;

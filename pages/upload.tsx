@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import firebase from 'firebase'
-import { login, create } from '../../public/lib/auth'
-import { genId } from '../../public/lib/genId'
-import '../../public/lib/firebase'
+import { login, create } from '../public/lib/auth'
+import { genId } from '../public/lib/genId'
 import {
   MainContainer,
   Container,
@@ -16,9 +15,10 @@ import {
   AuthContainer,
   InputBox,
   Input,
-  AuthButton
-} from '../../public/components/ui'
-import SocialLink from '../../public/components/SocialLink'
+  AuthButton,
+  Link
+} from '../public/components/ui'
+import SocialLink from '../public/components/SocialLink'
 
 interface HTMLInputEvent extends Event {
   target: HTMLInputElement & EventTarget
@@ -54,10 +54,13 @@ const Upload = () => {
   let [password, setPassword] = useState('')
   let [userAuthenticated, setUserAuth] = useState(false)
 
+  let [linkDone, setLinkStatus] = useState(false)
+  let [generatedLink, setLink] = useState('')
+
   //current user
   let [userEmail, setUserEmail] = useState('')
   let [userData, setUserData] = useState({})
- 
+
   function onAuthStateChange() {
     return firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -115,6 +118,8 @@ const Upload = () => {
       const storage = firebase.storage();
       const ref = storage.ref(userEmail).child(file.name);
 
+      setLinkStatus(false)
+
       const task = ref.put(file)
 
       task.on("state_changed", (snapshot) => {
@@ -139,17 +144,25 @@ const Upload = () => {
         await task.snapshot.ref.getDownloadURL().then(url => {
           downloadLink = url
         })
+
+        await setLink('/view/' + generatedId)
         const userData = {
-          email: userEmail,
-          files: [{
-            _id: generatedId,
-            downloadURL: downloadLink,
-            imagePath: 'soon'
-          }]
+          "email": userEmail,
+          "files": firebase.firestore.FieldValue.arrayUnion({
+            "_id": generatedId,
+            "imagePath": downloadLink
+          })
         }
+
+        const publicData = {
+          "_id": generatedId,
+          "imagePath": downloadLink
+        }
+
         //upload file and object to firebase
-        await firebase.firestore().collection('public').doc(generatedId).set({files: userData.files})
-        await firebase.firestore().collection('users').doc(userEmail).set(userData)
+        await firebase.firestore().collection('public').doc(generatedId).set(publicData)
+        await firebase.firestore().collection('users').doc(userEmail).update(userData)
+        await setLinkStatus(true)
       })
 
     })
@@ -158,6 +171,7 @@ const Upload = () => {
   return(
     <>
     <Helmet>
+      <title>Uplift - juan.engineer</title>
       <style>{`
           body {
             padding: 0;
@@ -175,11 +189,12 @@ const Upload = () => {
     <MainContainer />
     <Container>
       <Profile src="https://firebasestorage.googleapis.com/v0/b/tech-me-main.appspot.com/o/profile.jpg?alt=media&token=98b761eb-a169-4b2f-8c61-5cc8b26f541f"></Profile>
-      <Name>Upload</Name>
-      <Position>A terrible image upload service</Position>
+      <Name>Uplift</Name>
+      <Position fontWeight="500">A <b>terrible</b> image upload service</Position>
     <input type="file" id="inputFile" hidden={true} accept="image/*, video/*, audio/*" />
     <GetFile onClick={upload}>Click here to upload</GetFile>
-    <Uploader id="uploader" value="0" max="100"></Uploader>
+    <Uploader id="uploader" value="0" max="100" display={linkDone}></Uploader>
+        <Link href={generatedLink} display={linkDone} target="_blank">https://juan.engineer{generatedLink}</Link>
     <ModalContainer display={userAuthenticated}>
     <AuthContainer>
       <InputBox>

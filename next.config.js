@@ -21,7 +21,7 @@ module.exports = {
     authDomain: "tech-me-main.firebaseapp.com",
     databaseURL: "https://tech-me-main.firebaseio.com",
     projectId: "tech-me-main",
-    storageBucket: "gs://juan.engineer",
+    storageBucket: "gs://tech-me-main.appspot.com",
     messagingSenderId: "265745515598",
     appId: "1:265745515598:web:a594aa7f20c5b0be3cef1f",
     measurementId: "G-FTMP58FLFV",

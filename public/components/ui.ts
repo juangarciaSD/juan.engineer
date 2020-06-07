@@ -39,11 +39,12 @@ export const Name = styled.h1`
     font-size: 4vh;
 `
 
-export const Position = styled.h4`
+export const Position = styled.h4<UIProps>`
     padding: 5px 0px;
     margin: 0px auto;
     color: #fff;
     font-size: 2vh;
+    font-weight ${props => props.fontWeight};
 `
 
 export const Social = styled.div`
@@ -93,6 +94,7 @@ export const GetFile = styled.button`
     border-radius: 10px;
     transition: 200ms ease-in-out;
     outline: none;
+    margin-bottom: 15px;
 
     :hover {
         cursor: pointer;
@@ -100,10 +102,21 @@ export const GetFile = styled.button`
     }
 `
 
-export const Uploader = styled.progress`
+export const Uploader = styled.progress<UIProps>`
     appearance: none;
     width: 100%;
-    margin-top: 10px;
+    display: ${props => props.display ? "none": "block"};
+`
+
+export const Link = styled.a<UIProps>`
+    text-decoration: none;
+    color: #428df5;
+    display: ${props => props.display ? "block" : "none"};
+
+    :hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
 `
 
 //auth screen

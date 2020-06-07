@@ -14,7 +14,7 @@ export const create = async(email: string, password: string) => {
     
     var userObject = {
         email: auth.user.email,
-        files: [{}]
+        files: []
     }
 
     firebase.firestore().collection('users').doc(userObject.email).set(userObject)
