@@ -32,6 +32,10 @@ const Index = () => {
           }
         `}
       </style>
+      <meta property="og:title" content="Juan Garcia - juan.engineer" />
+      <meta property="og:description" content="Full-Stack Developer" />
+      <meta property="og:image" content="https://firebasestorage.googleapis.com/v0/b/tech-me-main.appspot.com/o/website%2Fprofile.jpg?alt=media&token=27fd93e8-0f5f-4351-8833-1262fc620b12" />
+      <meta property="og:url" content="https://juan.engineer" />
     </Helmet>
     <MainContainer />
     <Container>
