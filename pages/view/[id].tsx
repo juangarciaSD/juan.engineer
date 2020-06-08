@@ -3,23 +3,7 @@ import { Helmet } from 'react-helmet'
 import { useRouter } from 'next/router'
 import firebase from 'firebase'
 
-const FileViewer = () => {
-    let router = useRouter()
-    let [imgLocation, setImgLocation] = useState('')
-
-    useEffect(() => {
-        getFile()
-    });
-
-    const getFile = async() => {
-        let queryId = router.query.id
-        console.log(queryId)
-        //@ts-ignore
-        await firebase.firestore().collection('public').doc(queryId).get().then(doc => {
-            setImgLocation(doc.data().imagePath)
-        })
-    }
-
+const FileViewer = ({ imgLocation }) => {
     return (
         <>
             <title>View File - juan.engineer</title>
@@ -47,6 +31,19 @@ const FileViewer = () => {
             
         </>
     )
+}
+
+FileViewer.getInitialProps = async() => {
+    let router = useRouter()
+    let queryId = router.query.id
+    let imgPath;
+    console.log(queryId)
+    //@ts-ignore
+    await firebase.firestore().collection('public').doc(queryId).get().then(doc => {
+        return imgPath = doc.data().imagePath
+    })
+
+    return  { imgLocation: imgPath }
 }
 
 export default FileViewer
