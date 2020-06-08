@@ -41,7 +41,7 @@ const Index = () => {
       <meta property="twitter:description" content="Full-Stack Developer" />
       <meta property="twitter:image" content="https://firebasestorage.googleapis.com/v0/b/tech-me-main.appspot.com/o/website%2Fprofile.jpg?alt=media&token=27fd93e8-0f5f-4351-8833-1262fc620b12" />
       <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:side" content="https://juan.engineer" />
+      <meta property="twitter:site" content="https://juan.engineer" />
       <meta property="twitter:creator" content="@juan_garcia3708" />
     </Helmet>
     <MainContainer />
