@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "build": "next build && next export",
+    "start": "next start",
+    "smallgit": "git add . && git commit -m x && git push"
   },
   "dependencies": {
     "@material-ui/styles": "^4.10.0",
