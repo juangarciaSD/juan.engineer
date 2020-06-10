@@ -24,31 +24,6 @@ interface HTMLInputEvent extends Event {
   target: HTMLInputElement & EventTarget
 }
 
-// class File {
-//   _id: string
-//   downloadLink: string
-//   imagePath: string
-//   constructor(_id, downloadLink, imagePath) {
-//     this._id = _id;
-//     this.downloadLink = downloadLink;
-//     this.imagePath = imagePath
-//   }
-// }
-
-// let fileConverter = {
-//   toFirestore: function(file) {
-//       return {
-//           _id: file._id,
-//           downloadLink: file.downloadLink,
-//           imagePath: file.imagePath
-//           }
-//   },
-//   fromFirestore: function(snapshot, options){
-//       const data = snapshot.data(options);
-//       return new File(data._id, data.downloadLink, data.imagePath)
-//   }
-// }
-
 const Upload = () => {
   let [email, setEmail] = useState('')
   let [password, setPassword] = useState('')
