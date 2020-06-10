@@ -15,7 +15,6 @@ import Linkedin from '../public/assets/icons/linkedin.svg'
 import Notify from '../public/assets/icons/notify.svg'
 
 const Index = () => {
-  process.env.NODE_ENV === "production"
   return(
     <>
     <Helmet>
@@ -45,7 +44,7 @@ const Index = () => {
       <meta property="twitter:card" content="summary" />
       <meta property="twitter:site" content="https://juan.engineer" />
       <link rel="prefetch" href="https://firebasestorage.googleapis.com/v0/b/tech-me-main.appspot.com/o/website%2Fprofile.jpg?alt=media&token=27fd93e8-0f5f-4351-8833-1262fc620b12" />
-      <link rel="prefetch" href="https://firebasestorage.googleapis.com/v0/b/tech-me-main.appspot.com/o/website%2Fme-background.jpg?alt=media&token=3ae5fb32-e92c-43e0-a24c-4b8d0387142f" />
+      <link rel="prefetch" href="https://firebasestorage.googleapis.com/v0/b/tech-me-main.appspot.com/o/me-background.png?alt=media&token=0428b951-9f66-4f6e-b4cf-35a6a2f16d57" />
       <link rel="prerender" href="https://twitter.com/juan_garcia3708" />
       <link rel="prerender" href="https://github.com/fangskills" />
       <link rel="prerender" href="https://www.linkedin.com/in/juan-garcia-029161198/" />
