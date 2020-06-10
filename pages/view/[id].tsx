@@ -8,14 +8,14 @@ const FileViewer = () => {
     const router = useRouter()
 
     useEffect(() => {
-        const queryId = router.query.id
-        getFile(queryId)
-    }, []);
+        getFile()
+    });
 
-    const getFile = async(id: string | string[]) => {
+    const getFile = async() => {
+        const queryId = router.query.id
         const imageView = document.getElementById('imageView')
         //@ts-ignore
-        await firebase.firestore().collection("public").doc(id).get().then(doc => {
+        await firebase.firestore().collection("public").doc(queryId).get().then(doc => {
             //@ts-ignore
             imageView.src = doc.data().imagePath
         })
