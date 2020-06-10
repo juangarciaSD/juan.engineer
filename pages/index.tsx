@@ -32,10 +32,23 @@ const Index = () => {
           }
         `}
       </style>
+      <meta property="og:title" content="Juan Garcia - juan.engineer" />
+      <meta property="og:description" content="Full-Stack Developer" />
+      <meta property="og:image" content="../assets/profile.jpg" />
+      <meta property="og:url" content="https://juan.engineer" />
+      <meta property="og:type" content="summary" />
+
+      <meta property="twitter:title" content="Juan Garcia - juan.engineer" />
+      <meta property="twitter:description" content="Full-Stack Developer" />
+      <meta property="twitter:image" content="../assets/profile.jpg" />
+      <meta property="twitter:card" content="summary" />
+      <meta property="twitter:site" content="https://juan.engineer" />
+      <link rel="shortcut icon" type="image/jpg" href="../assets/profile.jpg" />
+      <link rel="shortcut icon" type="image/jpg" href="../assets/background.jpg" />
     </Helmet>
     <MainContainer />
     <Container>
-      <Profile src="https://firebasestorage.googleapis.com/v0/b/tech-me-main.appspot.com/o/website%2Fprofile.jpg?alt=media&token=27fd93e8-0f5f-4351-8833-1262fc620b12"></Profile>
+      <Profile src="../assets/profile.jpg"></Profile>
       <Name>Juan Garcia</Name>
       <Position>Full-Stack Developer</Position>
       <Social>

@@ -44,7 +44,6 @@ const FileViewer = () => {
         `}</style>
             </Helmet>
             <img src={imgLocation} />
-            
         </>
     )
 }

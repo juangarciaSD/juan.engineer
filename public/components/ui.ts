@@ -4,7 +4,7 @@ import UIProps from './ui.interface'
 export const MainContainer = styled.div`
     width: 100%;
     height: 100vh;
-    background-image: url("https://firebasestorage.googleapis.com/v0/b/tech-me-main.appspot.com/o/website%2Fme-background.jpg?alt=media&token=3ae5fb32-e92c-43e0-a24c-4b8d0387142f");
+    background-image: url("../assets/background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     filter: blur(8px);
