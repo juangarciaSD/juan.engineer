@@ -15,6 +15,7 @@ import Linkedin from '../public/assets/icons/linkedin.svg'
 import Notify from '../public/assets/icons/notify.svg'
 
 const Index = () => {
+  process.env.NODE_ENV === "production"
   return(
     <>
     <Helmet>
