@@ -1,22 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import { useRouter } from 'next/router'
 import firebase from 'firebase'
 
+
 const FileViewer = () => {
-    let router = useRouter()
-    let [imgLocation, setImgLocation] = useState('')
+    const router = useRouter()
 
     useEffect(() => {
-        getFile()
-    });
+        const queryId = router.query.id
+        getFile(queryId)
+    }, []);
 
-    const getFile = async() => {
-        let queryId = router.query.id
-        console.log(queryId)
+    const getFile = async(id: string | string[]) => {
+        const imageView = document.getElementById('imageView')
         //@ts-ignore
-        await firebase.firestore().collection('public').doc(queryId).get().then(doc => {
-            setImgLocation(doc.data().imagePath)
+        await firebase.firestore().collection("public").doc(id).get().then(doc => {
+            //@ts-ignore
+            imageView.src = doc.data().imagePath
         })
     }
 
@@ -43,13 +44,9 @@ const FileViewer = () => {
             }
         `}</style>
             </Helmet>
-            <img src={imgLocation} />
+            <img id="imageView" />
         </>
     )
-}
-
-export async function getStaticPaths() {
-    
 }
 
 export default FileViewer

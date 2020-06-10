@@ -4,10 +4,6 @@ import Tippy from 'tippy.js'
 import '../public/lib/firebase'
 import '../public/components/ui'
 
-export function reportWebVitals(metric) {
-  console.log(metric)
-}
-
 function MeApp({ Component, pageProps }) {
   globalThis.firebase = firebase
   const production = process.env.NODE_ENV === "production"
