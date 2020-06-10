@@ -32,7 +32,7 @@ const Index = () => {
           }
         `}
       </style>
-      <meta property="og:title" content="Juan Garcia - juan.engineer" />
+      <meta property="og:title" content="Juan Garcia - Full-Stack Developer" />
       <meta property="og:description" content="Full-Stack Developer" />
       <meta property="og:image" content="../assets/profile.jpg" />
       <meta property="og:url" content="https://juan.engineer" />
