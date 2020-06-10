@@ -48,4 +48,8 @@ const FileViewer = () => {
     )
 }
 
+export async function getStaticPaths() {
+    
+}
+
 export default FileViewer

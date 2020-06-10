@@ -1,18 +1,20 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import {
-  MainContainer,
-  Container,
-  Profile,
+import dynamic from 'next/dynamic'
+import { 
+  MainContainer, 
+  Container, 
+  Profile, 
   Name, 
-  Position,
-  Social
+  Position, 
+  Social 
 } from '../public/components/ui'
-import SocialLink from '../public/components/SocialLink'
 import Twitter from '../public/assets/icons/twitter.svg'
 import Github from '../public/assets/icons/github.svg'
 import Linkedin from '../public/assets/icons/linkedin.svg'
 import Notify from '../public/assets/icons/notify.svg'
+
+const SocialLink = dynamic(import('../public/components/SocialLink'))
 
 const Index = () => {
   return(
@@ -32,19 +34,6 @@ const Index = () => {
           }
         `}
       </style>
-      <meta property="og:title" content="Juan Garcia - Full-Stack Developer" />
-      <meta property="og:description" content="Full-Stack Developer" />
-      <meta property="og:image" content="../assets/profile.jpg" />
-      <meta property="og:url" content="https://juan.engineer" />
-      <meta property="og:type" content="summary" />
-
-      <meta property="twitter:title" content="Juan Garcia - juan.engineer" />
-      <meta property="twitter:description" content="Full-Stack Developer" />
-      <meta property="twitter:image" content="../assets/profile.jpg" />
-      <meta property="twitter:card" content="summary" />
-      <meta property="twitter:site" content="https://juan.engineer" />
-      <link rel="shortcut icon" type="image/jpg" href="../assets/profile.jpg" />
-      <link rel="shortcut icon" type="image/jpg" href="../assets/background.jpg" />
     </Helmet>
     <MainContainer />
     <Container>

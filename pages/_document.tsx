@@ -1,48 +1,35 @@
-// import React from 'react'
-// import { Helmet } from 'react-helmet'
-// import NextDocument from 'next/document'
-// import { ServerStyleSheet as StyledComponentSheets } from 'styled-components'
-// export default class Document extends NextDocument {
-//   static async getInitialProps (ctx) {
-//     const styledComponentSheet = new StyledComponentSheets()
-//     const originalRenderPage = ctx.renderPage
-//     try {
-//       ctx.renderPage = () =>
-//         originalRenderPage()
-//       const initialProps = await NextDocument.getInitialProps(ctx)
-//       return {
-//         ...initialProps,
-//         styles: [
-//           <React.Fragment key="styles">
-//             {initialProps.styles}
-//             {styledComponentSheet.getStyleElement()}
-//           </React.Fragment>,
-//         ],
-//       }
-//     } finally {
-//       styledComponentSheet.seal()
-//     }
-//   }
-// }
-
-import Document from 'next/document'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 class MyDoc extends Document {
   static async getInitialProps(ctx) {
-    const originalRenderPage = ctx.renderPage
-
-    ctx.renderPage = () =>
-      originalRenderPage({
-        // useful for wrapping the whole react tree
-        enhanceApp: (App) => App,
-        // useful for wrapping in a per-page basis
-        enhanceComponent: (Component) => Component,
-      })
-
-    // Run the parent `getInitialProps`, it now includes the custom `renderPage`
     const initialProps = await Document.getInitialProps(ctx)
+    return {...initialProps}
+  }
 
-    return initialProps
+  render() {
+    return(
+      <Html>
+        <Head>
+          <meta property="og:title" content="Juan Garcia - Full-Stack Developer" />
+          <meta property="og:description" content="Full-Stack Developer" />
+          <meta property="og:image" content="../assets/profile.jpg" />
+          <meta property="og:url" content="https://juan.engineer" />
+          <meta property="og:type" content="summary" />
+
+          <meta property="twitter:title" content="Juan Garcia - juan.engineer" />
+          <meta property="twitter:description" content="Full-Stack Developer" />
+          <meta property="twitter:image" content="../assets/profile.jpg" />
+          <meta property="twitter:card" content="summary" />
+          <meta property="twitter:site" content="https://juan.engineer" />
+          <link rel="shortcut icon" type="image/jpg" href="../assets/profile.jpg" />
+          <link rel="shortcut icon" type="image/jpg" href="../assets/background.jpg" />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    )
   }
 }
 

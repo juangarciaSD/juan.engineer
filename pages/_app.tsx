@@ -1,9 +1,16 @@
-import NextApp from 'next/app'
 import React from 'react'
+import firebase from 'firebase'
+import Tippy from 'tippy.js'
 import '../public/lib/firebase'
+import '../public/components/ui'
+
+export function reportWebVitals(metric) {
+  console.log(metric)
+}
 
 function MeApp({ Component, pageProps }) {
-  process.env.NODE_ENV === "production"
+  globalThis.firebase = firebase
+  const production = process.env.NODE_ENV === "production"
   return <Component {...pageProps} />
 }
 
