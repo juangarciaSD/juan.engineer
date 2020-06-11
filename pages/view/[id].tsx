@@ -5,17 +5,21 @@ import firebase from 'firebase'
 
 
 const FileViewer = () => {
-    const [imageSrc, setSrc] = useState('')
-    const router = useRouter()
-    let { id } = router.query
+    let router = useRouter()
+    let [imgLocation, setImgLocation] = useState('')
 
     useEffect(() => {
-        if(id != undefined) {
-            firebase.firestore().collection('public').doc(id.toString()).get().then(doc => {
-                setSrc(doc.data().imagePath)
-            })
-        }
-    })
+        getFile()
+    });
+
+    const getFile = async() => {
+        let queryId = router.query.id
+        console.log(queryId)
+        //@ts-ignore
+        await firebase.firestore().collection('public').doc(queryId).get().then(doc => {
+            setImgLocation(doc.data().imagePath)
+        })
+    }
 
     return (
         <>
@@ -40,7 +44,7 @@ const FileViewer = () => {
             }
         `}</style>
             </Head>
-            <img src={imageSrc} />
+            <img src={imgLocation} />
         </>
     )
 }
