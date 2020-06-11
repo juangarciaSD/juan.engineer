@@ -6,21 +6,16 @@ import firebase from 'firebase'
 
 const FileViewer = () => {
     const router = useRouter()
-
-    useEffect(() => {
-        getFile()
-    });
+    let { id } = router.query
 
     const getFile = async() => {
-        const queryId = await router.query.id
-        const imageView = document.getElementById('imageView')
-        if(queryId != undefined || null) {
+        let imageView = document.getElementById("imageView")
+        //@ts-ignore
+        await firebase.firestore().collection('public').doc(id).get().then(doc => {
             //@ts-ignore
-            await firebase.firestore().collection("public").doc(queryId).get().then(doc => {
-                //@ts-ignore
-                imageView.src = doc.data().imagePath
-            })
-        }
+            imageView.src = doc.data().imagePath
+            console.log(doc.data())
+        })
     }
 
     return (
