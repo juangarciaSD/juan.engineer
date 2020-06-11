@@ -12,13 +12,14 @@ const FileViewer = () => {
     });
 
     const getFile = async() => {
-        const queryId = router.query.id
+        const queryId = await router.query.id
         const imageView = document.getElementById('imageView')
-        //@ts-ignore
-        await firebase.firestore().collection("public").doc(queryId).get().then(doc => {
-            //@ts-ignore
-            imageView.src = doc.data().imagePath
-        })
+        while(imageView != undefined || null) {
+            firebase.firestore().collection("public").doc(queryId).get().then(doc => {
+                
+                imageView.src = doc.data().imagePath
+            })
+        }
     }
 
     return (
