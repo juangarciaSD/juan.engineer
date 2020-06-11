@@ -85,6 +85,10 @@ export const SocialIcon = styled.div`
     .notify-icon:hover {
         fill: #25b0ed;
     }
+
+    .email-icon:hover {
+        fill: #3dcbeb;
+    }
 `
 
 //upload service

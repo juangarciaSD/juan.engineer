@@ -38,6 +38,7 @@ class MyDoc extends Document {
           <link rel="preload" href="../assets/icons/github.svg" as="image" type="image/svg+xml"/>
           <link rel="preload" href="../assets/icons/linkedin.svg" as="image" type="image/svg+xml"/>
           <link rel="preload" href="../assets/icons/notify.svg" as="image" type="image/svg+xml"/>
+          <link rel="preload" href="../assets/icons/email.svg" as="image" type="image/svg+xml"/>
           <meta property="og:title" content="Juan Garcia - Full-Stack Developer" />
           <meta property="og:description" content="Full-Stack Developer" />
           <meta property="og:image" content="../assets/profile.jpg" />

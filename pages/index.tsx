@@ -13,6 +13,7 @@ import Twitter from '../public/assets/icons/twitter.svg'
 import Github from '../public/assets/icons/github.svg'
 import Linkedin from '../public/assets/icons/linkedin.svg'
 import Notify from '../public/assets/icons/notify.svg'
+import Email from '../public/assets/icons/email.svg'
 
 const SocialLink = dynamic(import('../public/components/SocialLink'))
 
@@ -20,7 +21,7 @@ const Index = () => {
   return(
     <>
     <Head>
-      <title>Home - juan.engineer</title>
+      <title>Home - Full-Stack Developer</title>
       <style>{`
           body {
             padding: 0;
@@ -53,6 +54,9 @@ const Index = () => {
           </SocialLink>
           <SocialLink href="https://notify.me/fangskillz" tooltip="Notify">
             <Notify />
+          </SocialLink>
+          <SocialLink href="mailto:me@juan.engineer" tooltip="Email">
+            <Email />
           </SocialLink>
       </Social>
     </Container>
