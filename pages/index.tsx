@@ -1,5 +1,5 @@
 import React from 'react'
-import { Helmet } from 'react-helmet'
+import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import { 
   MainContainer, 
@@ -19,7 +19,7 @@ const SocialLink = dynamic(import('../public/components/SocialLink'))
 const Index = () => {
   return(
     <>
-    <Helmet>
+    <Head>
       <title>Home - juan.engineer</title>
       <style>{`
           body {
@@ -34,7 +34,7 @@ const Index = () => {
           }
         `}
       </style>
-    </Helmet>
+    </Head>
     <MainContainer />
     <Container>
       <Profile src="../assets/profile.jpg"></Profile>
