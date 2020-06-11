@@ -1,27 +1,25 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useRouter } from 'next/router'
 import firebase from 'firebase'
 
 
 const FileViewer = () => {
+    const [imageSrc, setSrc] = useState('')
     const router = useRouter()
     let { id } = router.query
 
-    const getFile = async() => {
-        let imageView = document.getElementById("imageView")
-        //@ts-ignore
-        await firebase.firestore().collection('public').doc(id).get().then(doc => {
-            //@ts-ignore
-            imageView.src = doc.data().imagePath
-            console.log(doc.data())
+    //@ts-ignore
+    if(id != undefined) {
+        firebase.firestore().collection('public').doc(id).get().then(doc => {
+            setSrc(doc.data().imagePath)
         })
     }
 
     return (
         <>
-            <title>View File - juan.engineer</title>
             <Helmet>
+            <title>View File - juan.engineer</title>
                 <style>{`
             body {
                 margin: 0px;
@@ -41,7 +39,7 @@ const FileViewer = () => {
             }
         `}</style>
             </Helmet>
-            <img id="imageView" />
+            <img src={imageSrc} />
         </>
     )
 }
