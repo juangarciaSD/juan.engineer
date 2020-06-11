@@ -23,6 +23,10 @@ class MyDoc extends Document {
           <meta property="twitter:site" content="https://juan.engineer" />
           <link rel="shortcut icon" type="image/jpg" href="../assets/profile.jpg" />
           <link rel="shortcut icon" type="image/jpg" href="../assets/background.jpg" />
+          <link rel="preload" href="../assets/icons/twitter.svg" as="image" type="image/svg+xml"/>
+          <link rel="preload" href="../assets/icons/github.svg" as="image" type="image/svg+xml"/>
+          <link rel="preload" href="../assets/icons/linkedin.svg" as="image" type="image/svg+xml"/>
+          <link rel="preload" href="../assets/icons/notify.svg" as="image" type="image/svg+xml"/>
         </Head>
         <body>
           <Main />
