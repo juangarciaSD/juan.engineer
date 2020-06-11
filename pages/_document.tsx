@@ -10,6 +10,12 @@ class MyDoc extends Document {
     return(
       <Html>
         <Head>
+        <link rel="shortcut icon" type="image/jpg" href="../assets/profile.jpg" />
+          <link rel="shortcut icon" type="image/jpg" href="../assets/background.jpg" />
+          <link rel="preload" href="../assets/icons/twitter.svg" as="image" type="image/svg+xml"/>
+          <link rel="preload" href="../assets/icons/github.svg" as="image" type="image/svg+xml"/>
+          <link rel="preload" href="../assets/icons/linkedin.svg" as="image" type="image/svg+xml"/>
+          <link rel="preload" href="../assets/icons/notify.svg" as="image" type="image/svg+xml"/>
           <meta property="og:title" content="Juan Garcia - Full-Stack Developer" />
           <meta property="og:description" content="Full-Stack Developer" />
           <meta property="og:image" content="../assets/profile.jpg" />
@@ -21,12 +27,6 @@ class MyDoc extends Document {
           <meta property="twitter:image" content="../assets/profile.jpg" />
           <meta property="twitter:card" content="summary" />
           <meta property="twitter:site" content="https://juan.engineer" />
-          <link rel="shortcut icon" type="image/jpg" href="../assets/profile.jpg" />
-          <link rel="shortcut icon" type="image/jpg" href="../assets/background.jpg" />
-          <link rel="preload" href="../assets/icons/twitter.svg" as="image" type="image/svg+xml"/>
-          <link rel="preload" href="../assets/icons/github.svg" as="image" type="image/svg+xml"/>
-          <link rel="preload" href="../assets/icons/linkedin.svg" as="image" type="image/svg+xml"/>
-          <link rel="preload" href="../assets/icons/notify.svg" as="image" type="image/svg+xml"/>
         </Head>
         <body>
           <Main />
