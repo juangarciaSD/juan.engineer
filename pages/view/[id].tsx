@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import firebase from 'firebase'
 
@@ -9,15 +9,17 @@ const FileViewer = () => {
     const router = useRouter()
     let { id } = router.query
 
-    if(id != undefined) {
-        firebase.firestore().collection('public').doc(id.toString()).get().then(doc => {
-            setSrc(doc.data().imagePath)
-        })
-    }
+    useEffect(() => {
+        if(id != undefined) {
+            firebase.firestore().collection('public').doc(id.toString()).get().then(doc => {
+                setSrc(doc.data().imagePath)
+            })
+        }
+    })
 
     return (
         <>
-            <Helmet>
+            <Head>
             <title>View File - juan.engineer</title>
                 <style>{`
             body {
@@ -37,7 +39,7 @@ const FileViewer = () => {
                 transform: translate(-50%, -50%);
             }
         `}</style>
-            </Helmet>
+            </Head>
             <img src={imageSrc} />
         </>
     )
