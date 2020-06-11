@@ -22,13 +22,6 @@ const Index = () => {
     <Head>
       <title>Home - juan.engineer</title>
       <style>{`
-          body {
-            padding: 0;
-            margin: 0;
-            overflow: hidden;
-            font-family: 'Rubik', sans-serif;
-          }
-
           a {
             padding: 5px 8px;
           }
