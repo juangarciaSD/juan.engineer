@@ -8,6 +8,15 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = {
   mode: "production",
+  exportPathMap: async function (
+    defaultPathMap,
+    { dev, dir, outDir, distDir, buildId }
+  ) {
+    return {
+      '/': { page: '/' },
+      '/upload': { page: '/upload' }
+    }
+  },
   webpack: (config) => {
     config.module.rules.push(
       {test: /\.(png|jpeg)$/, loader: 'url-loader?limit=8192'}
