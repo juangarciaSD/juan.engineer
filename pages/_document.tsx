@@ -45,6 +45,7 @@ class MyDoc extends Document {
               margin: 0;
               overflow: hidden;
               font-family: 'Rubik', sans-serif;
+              overflow-y: hidden;
             }
           `}</script>
           
