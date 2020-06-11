@@ -9,7 +9,6 @@ const FileViewer = () => {
     const router = useRouter()
     let { id } = router.query
 
-    //@ts-ignore
     if(id != undefined) {
         firebase.firestore().collection('public').doc(id.toString()).get().then(doc => {
             setSrc(doc.data().imagePath)
