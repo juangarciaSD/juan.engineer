@@ -10,11 +10,15 @@ export const MainContainer = styled.div`
     filter: blur(8px);
     background-position: 50%;
     transform: scale(1.5);
+
+    @media only screen and (max-width: 600px) {
+        transform: scale(auto)
+    }
 `
 
 export const Container = styled.div`
     width: 350px;
-    position: absolute;
+    position: fixed;
     text-align: center;
     justify-content: center;
     align-content: center;
