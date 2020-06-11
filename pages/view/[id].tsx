@@ -11,7 +11,7 @@ const FileViewer = () => {
 
     //@ts-ignore
     if(id != undefined) {
-        firebase.firestore().collection('public').doc(id).get().then(doc => {
+        firebase.firestore().collection('public').doc(id.toString()).get().then(doc => {
             setSrc(doc.data().imagePath)
         })
     }
