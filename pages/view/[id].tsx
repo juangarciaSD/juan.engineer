@@ -1,27 +1,7 @@
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { GetStaticProps } from 'next'
 import firebase from 'firebase'
-
-
-export async function getStaticPaths() {
-    const doc = await firebase.firestore().collection("public").get()
-    
-    const paths = doc.docs.map((post) => ({
-        params: { id: post.id }
-    }))
-
-    return {paths, fallback: false }
-}
-
-export const getStaticProps: GetStaticProps = async ({params}) =>  {
-    // params contains the post `id`.
-    // If the route is like /posts/1, then params.id is 1
-    const doc = await firebase.firestore().collection("public").doc(params.id.toString()).get()
-    const imagePath = doc.data().imagePath
-
-    // Pass post data to the page via props
-    return { props: { imagePath } }
-}
 
 const FileViewer = ({ imagePath }) => {
     return (
@@ -50,6 +30,26 @@ const FileViewer = ({ imagePath }) => {
             <img src={imagePath} />
         </>
     )
+}
+
+export async function getStaticPaths() {
+    const doc = await firebase.firestore().collection("public").get()
+    
+    const paths = doc.docs.map((post) => ({
+        params: { id: post.id }
+    }))
+
+    return {paths, fallback: false }
+}
+
+export const getStaticProps: GetStaticProps = async ({params}) =>  {
+    // params contains the post `id`.
+    // If the route is like /posts/1, then params.id is 1
+    const doc = await firebase.firestore().collection("public").doc(params.id.toString()).get()
+    const imagePath = doc.data().imagePath
+
+    // Pass post data to the page via props
+    return { props: { imagePath } }
 }
 
 export default FileViewer
