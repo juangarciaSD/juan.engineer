@@ -49,8 +49,6 @@ export async function getStaticProps({ params }) {
     const doc = await firebase.firestore().collection("public").doc(params.id).get()
     const imageData = doc.data()
 
-    console.log("post data", imageData)
-
     // Pass post data to the page via props
     return { props: { imageData } }
 }
