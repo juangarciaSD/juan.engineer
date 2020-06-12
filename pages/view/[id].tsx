@@ -50,7 +50,7 @@ export const getStaticProps: GetStaticProps = async ({params}) =>  {
     const imageData = doc.data()
 
     // Pass post data to the page via props
-    return { props: { imageData } }
+    return { props: { imageData: { imagePath: String } } }
 }
 
 export default FileViewer
