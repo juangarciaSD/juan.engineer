@@ -1,26 +1,10 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
+import { useRouter, Router } from 'next/router'
 import firebase from 'firebase'
 
 
-const FileViewer = () => {
-    let router = useRouter()
-    let [imgLocation, setImgLocation] = useState('')
-
-    useEffect(() => {
-        getFile()
-    });
-
-    const getFile = async() => {
-        let queryId = router.query.id
-        console.log(queryId)
-        //@ts-ignore
-        await firebase.firestore().collection('public').doc(queryId).get().then(doc => {
-            setImgLocation(doc.data().imagePath)
-        })
-    }
-
+const FileViewer = ({ imageData }) => {
     return (
         <>
             <Head>
@@ -31,7 +15,7 @@ const FileViewer = () => {
                 background: #0e0e0e;
                 justify-content: center;
             }
-
+            
             img {
                 -webkit-user-select: none;
                 position: absolute;
@@ -42,11 +26,33 @@ const FileViewer = () => {
                 left: 50%;
                 transform: translate(-50%, -50%);
             }
-        `}</style>
+            `}</style>
             </Head>
-            <img src={imgLocation} />
+            <img src={imageData.imagePath} />
         </>
     )
+}
+
+export async function getStaticPaths() {
+    const doc = await firebase.firestore().collection("public").get()
+    
+    const paths = doc.docs.map((post) => ({
+        params: { id: post.id }
+    }))
+
+    return {paths, fallback: true }
+}
+
+export async function getStaticProps({ params }) {
+    // params contains the post `id`.
+    // If the route is like /posts/1, then params.id is 1
+    const doc = await firebase.firestore().collection("public").doc(params.id).get()
+    const imageData = doc.data()
+
+    console.log("post data", imageData)
+
+    // Pass post data to the page via props
+    return { props: { imageData } }
 }
 
 export default FileViewer
