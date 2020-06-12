@@ -28,7 +28,7 @@ const FileViewer = ({ imageData }) => {
             }
             `}</style>
             </Head>
-            <img src={imageData.imagePath || ''} />
+            <img src={imageData.imagePath as any} />
         </>
     )
 }
@@ -50,7 +50,7 @@ export const getStaticProps: GetStaticProps = async ({params}) =>  {
     const imageData = doc.data()
 
     // Pass post data to the page via props
-    return { props: { imageData: { imagePath: String } } }
+    return { props: { imageData } }
 }
 
 export default FileViewer
