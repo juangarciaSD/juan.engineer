@@ -4,7 +4,7 @@ import { GetStaticProps } from 'next'
 import firebase from 'firebase'
 
 
-const FileViewer = ({ imageData }) => {
+const FileViewer = ({ imagePath }) => {
     return (
         <>
             <Head>
@@ -28,7 +28,7 @@ const FileViewer = ({ imageData }) => {
             }
             `}</style>
             </Head>
-            <img src={imageData.imagePath as any} />
+            <img src={imagePath} />
         </>
     )
 }
@@ -47,10 +47,10 @@ export const getStaticProps: GetStaticProps = async ({params}) =>  {
     // params contains the post `id`.
     // If the route is like /posts/1, then params.id is 1
     const doc = await firebase.firestore().collection("public").doc(params.id.toString()).get()
-    const imageData = doc.data()
+    const imagePath = doc.data().imagePath
 
     // Pass post data to the page via props
-    return { props: { imageData: { imagePath: String } } }
+    return { props: { imagePath } }
 }
 
 export default FileViewer
