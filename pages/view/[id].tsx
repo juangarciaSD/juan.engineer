@@ -28,7 +28,7 @@ const FileViewer = ({ imageData }) => {
             }
             `}</style>
             </Head>
-            <img src={imageData.imagePath} />
+            <img src={imageData.imagePath || ''} />
         </>
     )
 }
