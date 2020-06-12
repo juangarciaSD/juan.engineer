@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Head from 'next/head'
-import { useRouter, Router } from 'next/router'
+import { GetStaticProps } from 'next'
 import firebase from 'firebase'
 
 
@@ -43,10 +43,10 @@ export async function getStaticPaths() {
     return {paths, fallback: true }
 }
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps = async ({params}) =>  {
     // params contains the post `id`.
     // If the route is like /posts/1, then params.id is 1
-    const doc = await firebase.firestore().collection("public").doc(params.id).get()
+    const doc = await firebase.firestore().collection("public").doc(params.id.toString()).get()
     const imageData = doc.data()
 
     // Pass post data to the page via props
