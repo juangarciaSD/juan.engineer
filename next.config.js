@@ -15,7 +15,7 @@ module.exports = {
     return {
       '/': { page: '/' },
       '/upload': { page: '/upload' },
-      '/view?': { page: '/view/[id]'}
+      '/view': { page: '/view/[id]'}
     }
   },
   webpack: (config) => {
