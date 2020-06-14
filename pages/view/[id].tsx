@@ -4,32 +4,25 @@ import Head from 'next/head'
 import { useRouter, NextRouter } from 'next/router'
 import firebase from 'firebase'
 
-export const getStaticProps = async() => {
-    const fileItems: Object[] = []
-    const doc = await firebase.firestore().collection("public").get().then(snapshot => {
-        snapshot.docs.map(doc => {
-            return fileItems.push(doc.data())
-        })
-    })
+// export const getStaticProps = async() => {
+//     const fileItems: Object[] = []
+//     const doc = await firebase.firestore().collection("public").get().then(snapshot => {
+//         snapshot.docs.map(doc => {
+//             return fileItems.push(doc.data())
+//         })
+//     })
 
-    return {
-        props: {
-            fileItems
-        }
-    }
-}
+//     return {
+//         props: {
+//             fileItems
+//         }
+//     }
+// }
 
-export const getStaticPaths = async() => {
-    return {
-        fallback: true
-    }
-}
-
-const FileViewer = ({ fileItems }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const FileViewer = () => {
     let router = useRouter()
     let queryId = router.query.id
-    console.log(queryId)
-    console.log("Next infer static props" + fileItems)
+    console.log("Query", queryId)
     const [imagePath, setPath] = useState()
     useEffect(() => {
         console.log("This is useEffect", queryId)
