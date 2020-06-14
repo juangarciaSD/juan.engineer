@@ -19,6 +19,12 @@ export const getStaticProps = async() => {
     }
 }
 
+export const getStaticPaths = async() => {
+    return {
+        fallback: true
+    }
+}
+
 const FileViewer = ({ fileItems }: InferGetStaticPropsType<typeof getStaticProps>) => {
     let router = useRouter()
     let queryId = router.query.id
