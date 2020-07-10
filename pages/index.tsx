@@ -49,7 +49,8 @@ const Index = () => {
     console.log(response)
   }
 
-  if(typeof code != 'undefined') {
+  console.log(`Code -> ${code}`)
+  if(code != null) {
     const startSpotify = () => {
       getToken()
     }
