@@ -14,10 +14,23 @@ import Github from '../public/assets/icons/github.svg'
 import Linkedin from '../public/assets/icons/linkedin.svg'
 import Notify from '../public/assets/icons/notify.svg'
 import Email from '../public/assets/icons/email.svg'
+import { Spotify } from '../public/lib/spotify'
+import core from '../public/lib/core'
 
 const SocialLink = dynamic(import('../public/components/SocialLink'))
 
 const Index = () => {
+
+  const url = window.location.search
+  const urlParams = new URLSearchParams(url)
+  const code = urlParams.get('code')
+  if(typeof code != 'undefined') {
+    const getToken = async() => {
+      const response = await core.SpotifyToken({ code })
+      console.log(response)
+    }
+  }
+
   return(
     <>
     <Head>
@@ -58,6 +71,7 @@ const Index = () => {
           <SocialLink href="mailto:me@juan.engineer" tooltip="Email">
             <Email />
           </SocialLink>
+          <button onClick={Spotify.SpotifyAuth}>Spotify login</button>
       </Social>
     </Container>
     </>

@@ -4,34 +4,22 @@ import Head from 'next/head'
 import { useRouter, NextRouter } from 'next/router'
 import firebase from 'firebase'
 
-// export const getStaticProps = async() => {
-//     const fileItems: Object[] = []
-//     const doc = await firebase.firestore().collection("public").get().then(snapshot => {
-//         snapshot.docs.map(doc => {
-//             return fileItems.push(doc.data())
-//         })
-//     })
-
-//     return {
-//         props: {
-//             fileItems
-//         }
-//     }
-// }
-
 const FileViewer = () => {
     let router = useRouter()
     let queryId = router.query.id
-    console.log("Query", queryId)
-    const [imagePath, setPath] = useState()
-    useEffect(() => {
-        console.log("This is useEffect", queryId)
-    }, [])
-    if(queryId != undefined) {
-        firebase.firestore().collection('public').doc(queryId.toString()).get().then(doc => {
+    let [imagePath, setPath] = useState('')
+    const getImage = () => {
+        //@ts-ignore
+        firebase.firestore().collection("public").doc(queryId).get().then(doc => {
             setPath(doc.data().imagePath)
+            console.log(doc.data())
         })
     }
+
+    useEffect(() => {
+        getImage()
+        router.events.off("routeChangeStart", getImage)
+    }, [])
     return (
         <>
             <Head>

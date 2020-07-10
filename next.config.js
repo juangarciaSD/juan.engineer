@@ -1,3 +1,4 @@
+require('dotenv').config()
 const withCSS = require('@zeit/next-css');
 const withImages = require('next-images');
 const withOffline = require('next-offline')
@@ -27,17 +28,20 @@ module.exports = {
     return config
   },
   env: {
-    apiKey: "AIzaSyBXUC_xgFkUrE6rupZbtA7Q8iAseYV-EHM",
-    authDomain: "tech-me-main.firebaseapp.com",
-    databaseURL: "https://tech-me-main.firebaseio.com",
-    projectId: "tech-me-main",
-    storageBucket: "gs://tech-me-main.appspot.com",
-    messagingSenderId: "265745515598",
-    appId: "1:265745515598:web:a594aa7f20c5b0be3cef1f",
-    measurementId: "G-FTMP58FLFV",
-    notificationKey: "BCbIHkaJuwqApqu2g7M_vy86CZzIPcj4yrQ9M180eM-ufTXuYxbNHws8IrFj0C2XnV2QfN_ew-iXoS4Synfjy2w",
-    clientId: "673458185679-hs4bdnvq29lg2onvf4a5kd0ivhj10f6g.apps.googleusercontent.com",
-    clientSecret: "0P0cerVp24vHOsAZSWblLRmz"
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.AUTH_DOMAIN,
+    databaseURL: process.env.DATABASE_URL,
+    projectId: process.env.PROJECT_ID,
+    storageBucket: process.env.STORAGE_BUCKET,
+    messagingSenderId: process.env.MESSAGING_SENDER_ID,
+    appId: process.env.APP_ID,
+    measurementId: process.env.MEASUREMENT_ID,
+    notificationKey: process.env.NOTIFICATION_KEY,
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    spotifyClientId: process.env.SPOTIFY_CLIENT_ID,
+    spotifyClientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+    redirectUri: process.env.SPOTIFY_REDIRECT_URI
   }
 }
 withImages({})

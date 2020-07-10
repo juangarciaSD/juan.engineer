@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet'
 import firebase from 'firebase'
 import { login, create } from '../public/lib/auth'
 import { genId } from '../public/lib/genId'
+import Jimp from 'jimp'
 import {
   MainContainer,
   Container,
@@ -89,6 +90,10 @@ const Upload = () => {
 
     inputFile.addEventListener("change", (e: HTMLInputEvent) => {
       var file = e.target.files[0];
+
+      //finish the compress npm package
+      //@ts-ignore
+      Jimp.read(inputFile.value)
 
       const storage = firebase.storage();
       const ref = storage.ref(userEmail).child(file.name);
