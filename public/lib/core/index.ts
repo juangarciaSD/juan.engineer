@@ -25,9 +25,10 @@ if (ACCESS_TOKEN.value === "") {
   }
 
 //api route
+const scopes = "user-read-playback-state user-read-current-playing";
 export const SpotifyToken = async (params: Spotify) => {
     try {
-        const response = api.post(`api/token?grant_type=authorization_code&code=${params.code}&redirect_uri=${encodeURIComponent(process.env.redirectUri)}&client_id=${process.env.spotifyClientId}&client_secret=${process.env.spotifyClientSecret}`)
+        const response = api.post(`api/token?grant_type=authorization_code&code=${params.code}&redirect_uri=${encodeURIComponent(process.env.redirectUri)}&scope=${encodeURIComponent(scopes)}&client_id=${process.env.spotifyClientId}&client_secret=${process.env.spotifyClientSecret}`)
         return response
     } catch(err) {
         console.log(err)

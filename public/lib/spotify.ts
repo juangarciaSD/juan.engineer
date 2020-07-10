@@ -8,7 +8,7 @@ const client_id = process.env.spotifyClientId;
 const client_secret = process.env.spotifyClientSecret;
 const redirect_uir = process.env.redirectUri;
 
-const scopes = "user-read-playback-state user-read-current-playing";
+x
 
 export const Spotify = {
   SpotifyAuth: () => {
