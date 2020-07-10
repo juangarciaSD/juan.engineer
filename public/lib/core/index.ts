@@ -9,7 +9,6 @@ export const api = App.API({
     baseURL: "https://accounts.spotify.com",
     options: {
         headers: {
-            "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/x-www-form-urlencoded",
             Authorization: `Bearer ${ACCESS_TOKEN}`
         }
