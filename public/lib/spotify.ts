@@ -7,7 +7,6 @@ const spotify = new SpotifyWebApi();
 const client_id = process.env.spotifyClientId;
 const client_secret = process.env.spotifyClientSecret;
 const redirect_uri = process.env.redirectUri;
-
 const scopes = "user-read-playback-state user-read-current-playing";
 
 export const Spotify = {
