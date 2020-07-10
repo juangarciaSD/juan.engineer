@@ -34,9 +34,10 @@ const Index = () => {
   const code = urlParams.get('code')
   const getToken = async() => {
     const response = await core.SpotifyToken({ code })
-    core.state.ACCESS_TOKEN.set(JSON.stringify(response.data?.access_token))
+    core.state.ACCESS_TOKEN.set(JSON.stringify(response.data?.access_token)).persist()
     //@ts-expect-error
     core.api.config.options.headers.authorization = `Bearer ${ACCESS_TOKEN}`
+    console.log(`State value ${core.state.ACCESS_TOKEN.value}`)
     console.log(response.data?.refresh_token)
     core.state.ACCESS_TOKEN.watch('Token', () => {
       console.log("Token has changed, now performing get data function")
