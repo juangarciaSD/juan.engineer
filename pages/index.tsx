@@ -36,6 +36,7 @@ const Index = () => {
       const response = await core.SpotifyToken({ code })
       console.log(response)
     }
+    getToken()
   }
 
   return(
