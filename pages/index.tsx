@@ -54,6 +54,7 @@ const Index = () => {
     const startSpotify = () => {
       getToken()
     }
+    startSpotify()
   }
 
   return(
