@@ -21,7 +21,9 @@ const SocialLink = dynamic(import('../public/components/SocialLink'))
 
 const Index = () => {
 
-  const url = window.location.search
+  if(process.env.NODE_ENV === 'production') {
+    const url = window.location.search
+  }
   const urlParams = new URLSearchParams(url)
   const code = urlParams.get('code')
   if(typeof code != 'undefined') {
