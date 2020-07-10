@@ -4,7 +4,9 @@ import { Spotify } from './spotify.interface'
 export const api = App.API({
     baseURL: "https://accounts.spotify.com",
     options: {
-
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
     }
 })
 
