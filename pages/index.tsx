@@ -36,7 +36,7 @@ const Index = () => {
     const response = await core.SpotifyToken({ code })
     core.state.ACCESS_TOKEN.set(response.data?.access_token)
     //@ts-expect-error
-    core.api.config.options.headers.authorization = `Bearer ${ACCESS_TOKEN}`
+    core.api.config.options.headers.authorization = `Bearer ${ACCESS_TOKEN.value}`
     console.log(`State value ${core.state.ACCESS_TOKEN.value}`)
     console.log(response.data?.refresh_token)
     core.state.ACCESS_TOKEN.watch('Token', () => {
