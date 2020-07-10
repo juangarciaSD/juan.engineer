@@ -15,13 +15,14 @@ import Linkedin from '../public/assets/icons/linkedin.svg'
 import Notify from '../public/assets/icons/notify.svg'
 import Email from '../public/assets/icons/email.svg'
 import { Spotify } from '../public/lib/spotify'
-import core from '../public/lib/core'
+import core, { ACCESS_TOKEN } from '../public/lib/core'
 
 const SocialLink = dynamic(import('../public/components/SocialLink'))
 
 const Index = () => {
 
   let url = "";
+  let token = ""
   if(typeof window === 'undefined') {
     //@ts-ignore
     global.window = {}
@@ -34,9 +35,17 @@ const Index = () => {
   if(typeof code != 'undefined') {
     const getToken = async() => {
       const response = await core.SpotifyToken({ code })
-      console.log(response)
+      core.state.ACCESS_TOKEN.set(response.data?.access_token)
+      //@ts-expect-error
+      core.api.config.options.headers.authorization = `Bearer ${ACCESS_TOKEN}`
+      console.log(response.data?.refresh_token)
+      getData()
     }
     getToken()
+    const getData = async() => {
+      const response = await core.SpotifyData()
+      console.log(response.data)
+    }
   }
 
   return(
