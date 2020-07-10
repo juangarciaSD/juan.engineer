@@ -3,7 +3,7 @@ import { App } from './pulse'
 import { Spotify } from './spotify.interface'
 
 //state
-export const ACCESS_TOKEN = App.State('').type(String)
+export const ACCESS_TOKEN = App.State().type(String)
 
 export const api = App.API({
     baseURL: "https://accounts.spotify.com",

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import { 
@@ -43,12 +43,16 @@ const Index = () => {
       getData()
     })
   }
+
   const getData = async() => {
     const response = await core.SpotifyData()
-    console.log(response.data)
+    console.log(response)
   }
+
   if(typeof code != 'undefined') {
-    getToken()
+    const startSpotify = () => {
+      getToken()
+    }
   }
 
   return(
