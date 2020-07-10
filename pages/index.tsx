@@ -32,20 +32,23 @@ const Index = () => {
   }
   const urlParams = new URLSearchParams(url)
   const code = urlParams.get('code')
-  if(typeof code != 'undefined') {
-    const getToken = async() => {
-      const response = await core.SpotifyToken({ code })
-      core.state.ACCESS_TOKEN.set(JSON.stringify(response.data?.access_token))
-      //@ts-expect-error
-      core.api.config.options.headers.authorization = `Bearer ${ACCESS_TOKEN}`
-      console.log(response.data?.refresh_token)
+  const getToken = async() => {
+    const response = await core.SpotifyToken({ code })
+    core.state.ACCESS_TOKEN.set(JSON.stringify(response.data?.access_token))
+    //@ts-expect-error
+    core.api.config.options.headers.authorization = `Bearer ${ACCESS_TOKEN}`
+    console.log(response.data?.refresh_token)
+    core.state.ACCESS_TOKEN.watch('Token', () => {
+      console.log("Token has changed, now performing get data function")
       getData()
-    }
+    })
+  }
+  const getData = async() => {
+    const response = await core.SpotifyData()
+    console.log(response.data)
+  }
+  if(typeof code != 'undefined') {
     getToken()
-    const getData = async() => {
-      const response = await core.SpotifyData()
-      console.log(response.data)
-    }
   }
 
   return(
