@@ -27,7 +27,6 @@
     "next-images": "^1.4.0",
     "next-offline": "^5.0.2",
     "now": "^19.1.0",
-    "pulse-framework": "file:./pulse",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-helmet": "^6.0.0",
