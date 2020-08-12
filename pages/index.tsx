@@ -48,7 +48,6 @@ const Index = () => {
           <SocialLink href="https://github.com/fangskillz" tooltip="Github">
             <Github />
           </SocialLink>
-
           <SocialLink href="https://www.linkedin.com/in/juan-garcia-029161198/" tooltip="Linkedin">
             <Linkedin />
           </SocialLink>
