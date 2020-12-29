@@ -1,0 +1,21 @@
+[{
+    "position": "Full-Stack Engineer",
+    "status": "Active",
+    "company": "Zyndicate",
+    "type": "All-in-one Organizer Platform",
+    "color": "#3854FC",
+    "image": "https://zyndicate.app/zyndicate-black.png",
+    "alt": "",
+    "timeline": "2020 - Present",
+    "href": "https://zyndicate.app"
+}, {
+    "position": "CEO & Founder",
+    "status": "In Development",
+    "company": "School App (TBD)",
+    "type": "Realtime Communication",
+    "color": "rgba(25, 25, 25)",
+    "image": "",
+    "alt": "School App",
+    "timeline": "2019 - Present",
+    "href": "https://think101.me"
+}]
