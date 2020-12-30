@@ -20,7 +20,8 @@
       "baseUrl": ".",
       "paths": {
         "components/*": ["public/components/*"],
-        "ui/*": ["public/ui/*"]
+        "ui/*": ["public/ui/*"],
+        "lib/*": ["public/lib/*"]
       },
     },
     "include": [

@@ -7,7 +7,8 @@
     "image": "/assets/zyndicate.png",
     "alt": "",
     "timeline": "2020 - Present",
-    "href": "https://zyndicate.app"
+    "href": "https://zyndicate.app",
+    "id": 1
 }, {
     "position": "CEO & Founder",
     "status": "In Development",
@@ -17,5 +18,6 @@
     "image": "",
     "alt": "School App",
     "timeline": "2019 - Present",
-    "href": "https://think101.me"
+    "href": "https://think101.me",
+    "id": 2
 }]

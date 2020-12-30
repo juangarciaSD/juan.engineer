@@ -56,6 +56,7 @@ const JobDiv: React.FC<Props> = (props) => {
                 <Heading1 text="Position" />
                 <span>{props.position}</span>
                 <Heading1 text="Status"></Heading1>
+                
                 <span>{props.status}</span>
                 <Heading1 text="Company"></Heading1>
                 <span>{props.company}</span>

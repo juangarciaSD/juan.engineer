@@ -1,7 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
-class Zyndicate extends Document {
+class Portfolio extends Document {
     static async getInitialProps(ctx) {
         const sheet = new ServerStyleSheet();
         const originalRenderPage = ctx.renderPage;
@@ -28,6 +28,8 @@ class Zyndicate extends Document {
         }
     }
 
+    //#f5f5f5
+
     render() {
         return (
             <Html>
@@ -45,7 +47,7 @@ class Zyndicate extends Document {
             body {
               width: 100vw;
               height: 100vh;
-              background-color: #f5f5f5;
+              background-color: transparent;
             }
           `}</style>
                 </Head>
@@ -58,4 +60,4 @@ class Zyndicate extends Document {
     }
 }
 
-export default Zyndicate;
+export default Portfolio;
