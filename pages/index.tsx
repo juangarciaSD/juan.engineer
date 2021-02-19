@@ -1,44 +1,27 @@
 import React from "react";
-import Div from "components/div";
-import JobDiv from "ui/JobDiv";
-import Heading1 from "components/heading/1";
 
-//jobs json file
-import JobsData from "../public/data/jobs.json";
+import Spotify from "../components/spotify";
 
-const Index = () => {
-    const [jobs, setJobs] = React.useState(JobsData);
+import { ToggleTheme } from "../utils/theme";
+
+const Index = (props: { playing: any }) => {
+    console.log(props.playing);
     return(
         <>
-        {/* <section>
-            <span>Hello World</span>
-        </section> */}
-        <Div
-            padding="15px 0px 50px"
-            backgroundColor="#212121">
-            <Heading1
-            text="Portfolio"
-            color="#fff"
-            fontSize="50px"
-            textAlign="center"
-            fontWeight="500"
-            paddingBottom="38px" />
-            {jobs.map((elem, idx) => (
-                <JobDiv 
-                    key={elem.id}
-                    backgroundColor={elem.color}
-                    src={elem.image}
-                    position={elem.position}
-                    status={elem.status}
-                    company={elem.company}
-                    type={elem.type}
-                    altText={elem.alt}
-                    timeline={elem.timeline}
-                    href={elem.href} />
-            ))}
-        </Div>
+        {props.playing.is_playing && <Spotify playing={props.playing} />}
         </>
     );
+};
+
+export async function getStaticProps() {
+    const res = await fetch("https://go.juan.engineer/api/spotify");
+    const data = await res.json();
+
+    return {
+        props: {
+            playing: data
+        }
+    }
 };
 
 export default Index;

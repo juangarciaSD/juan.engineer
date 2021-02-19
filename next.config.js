@@ -1,11 +1,24 @@
 const withCSS = require('@zeit/next-css');
 const withImages = require('next-images');
+const withFonts = require('next-fonts');
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true'
 })
 
-module.exports = {
+module.exports = withFonts({
+  webpack: (config, { isServer }) => {
+    // Fixes npm packages that depend on `fs` module
+    if (!isServer) {
+      config.node = {
+        fs: "empty",
+      };
+    }
+
+    return config;
+  },
+}),
+{
   webpack: (config) => {
     config.module.rules.push(
       {test: /\.(png|jpeg)$/, loader: 'url-loader?limit=8192'}
