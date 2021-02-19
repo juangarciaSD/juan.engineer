@@ -55,6 +55,7 @@ export interface DefaultProps {
     textDecoration?: CSSProperties["textDecoration"];
     fontSize?: CSSProperties["fontSize"];
     fontWeight?: CSSProperties["fontWeight"];
+    fontFamily?: CSSProperties["fontFamily"];
 
     float?: CSSProperties["float"];
     cursor?: CSSProperties["cursor"];
@@ -124,6 +125,7 @@ export const DEFAULT_STYLES = css<DefaultProps>`
     text-decoration: ${props => props.textDecoration};
     font-size: ${props => props.fontSize};
     font-weight: ${props => props.fontWeight};
+    font-family: ${props => props.fontFamily};
     float: ${props => props.float};
     cursor: ${props => props.cursor};
     box-shadow: ${props => props.boxShadow};

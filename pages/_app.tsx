@@ -5,6 +5,8 @@ import { createGlobalStyle } from "styled-components";
 import FontStyle from "../components/fonts";
 import { SetTheme } from "../utils/theme";
 
+import Footer from "../components/footer";
+
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
@@ -45,6 +47,7 @@ function Portfolio({ Component, pageProps }) {
     <FontStyle />
     <GlobalStyle />
     <Component {...pageProps} />
+    <Footer />
     </>
   )
 }

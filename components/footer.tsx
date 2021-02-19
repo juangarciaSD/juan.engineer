@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import NextLink from "next/link";
+
 import Div from "./Div";
 
 const Footer = () => {
@@ -24,8 +26,32 @@ const Footer = () => {
                     marginRight="40px"
                     flexDirection="row"
                     display="flex">
-
+                        <NextLink href="/" passHref>
+                            <Link>Juan Garcia</Link>
+                        </NextLink>
+                        <Div
+                            fontFamily="FiraCode-Light"
+                            color="var(--text)"
+                            opacity="50%"
+                            paddingLeft="10px"
+                            paddingRight="10px">
+                                •
+                        </Div>
                 </Div>
         </Div>
     );
 };
+
+const Link = styled.a`
+  text-decoration: none;
+  font-family: "FiraCode-Light";
+  color: var(--text);
+  opacity: 50%;
+  :hover {
+    cursor: pointer;
+    color: #127796;
+    text-decoration: underline;
+  }
+`;
+
+export default Footer;
