@@ -1,9 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-
 import NextLink from "next/link";
 
 import Div from "./Div";
+import Icon from "./icon";
+import { faMoon } from "@fortawesome/free-solid-svg-icons";
+
+import { ToggleTheme } from "utils/theme";
 
 const Footer = () => {
     return(
@@ -31,10 +34,23 @@ const Footer = () => {
                         </NextLink>
                         <Text paddingLeft="10px" paddingRight="10px">•</Text>
                         <Text>2003 - {new Date().getFullYear()}</Text>
+                        <Text paddingLeft="10px" paddingRight="10px">•</Text>
+                        <IconWrapped>
+                            <Icon
+                                onClick={ToggleTheme}
+                                icon={faMoon}
+                                size={15}
+                                highlight="var(--highlight-color)"
+                            />
+                        </IconWrapped>
                 </Div>
         </Div>
     );
 };
+
+const IconWrapped = styled.div`
+  opacity: 50%;
+`;
 
 const Text = styled(Div)`
     font-family: 'FiraCode-Light';
