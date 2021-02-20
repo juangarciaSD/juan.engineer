@@ -14,8 +14,10 @@ const Index = (props: { playing: any }) => {
     console.log(props.playing);
     return(
         <>
-        <Navigation />
-        {props.playing.is_playing && <Spotify playing={props.playing} />}
+        <Div>
+            <Navigation />
+            {props.playing.is_playing && <Spotify playing={props.playing} />}
+        </Div>
         <Div
             minHeight="100vh"
             padding="0px 0.5rem"

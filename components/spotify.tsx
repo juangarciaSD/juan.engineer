@@ -82,6 +82,15 @@ const SpotifyContainer = styled(Div)`
     :hover {
         border-bottom-width: 0px;
     }
+
+    @media only screen and (max-width : 640px) {
+        position: fixed;
+        right: 0;
+        left: 0;
+        max-width: 100%;
+        width: auto;
+        margin: 0px 15px;
+    }
 `;
 
 const Text = styled(TextTicker)<{ size?: number }>`

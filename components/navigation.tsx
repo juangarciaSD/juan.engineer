@@ -6,19 +6,27 @@ import Div from "./Div";
 
 const Navigation = () => {
     return(
-        <Div
-            position="absolute"
-            left="0"
-            display="flex"
-            flexDirection="row"
-            margin="15px"
-            padding="10px">
+        <NavigationContainer>
                 <Link href="/" passHref>
                     <NavLink>Home</NavLink>
                 </Link>
-        </Div>
+        </NavigationContainer>
     );
 };
+
+const NavigationContainer = styled(Div)`
+    position: absolute;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    margin: 15px;
+    padding: 10px;
+
+    @media only screen and (max-width : 640px) {
+        position: initial;
+        margin: 10px 15px;
+    }
+`;
 
 const NavLink = styled.a`
     font-family: 'FiraCode-Bold';
