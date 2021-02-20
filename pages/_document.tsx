@@ -50,6 +50,7 @@ class Portfolio extends Document {
               background-color: transparent;
             }
           `}</style>
+          <title>Chilling • Juan Garcia</title>
                 </Head>
                 <body>
                     <Main />
