@@ -29,18 +29,18 @@ const Footer = () => {
                         <NextLink href="/" passHref>
                             <Link>Juan Garcia</Link>
                         </NextLink>
-                        <Div
-                            fontFamily="FiraCode-Light"
-                            color="var(--text)"
-                            opacity="50%"
-                            paddingLeft="10px"
-                            paddingRight="10px">
-                                •
-                        </Div>
+                        <Text paddingLeft="10px" paddingRight="10px">•</Text>
+                        <Text>2003 - {new Date().getFullYear()}</Text>
                 </Div>
         </Div>
     );
 };
+
+const Text = styled(Div)`
+    font-family: 'FiraCode-Light';
+    color: var(--text);
+    opacity: 50%;
+`;
 
 const Link = styled.a`
   text-decoration: none;

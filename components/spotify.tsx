@@ -19,8 +19,9 @@ export interface Playing {
 
 const Spotify = (props: { playing: Playing }) => {
     return(
-        <Div
+        <SpotifyContainer
            position="absolute"
+           right="0"
            borderRadius="10px"
            width="400px"
            height="75px"
@@ -29,13 +30,13 @@ const Spotify = (props: { playing: Playing }) => {
            margin="15px"
            padding="8px"
            alignItems="center"
-           display="flex">
-                <Icon
-                    link={`https://open.spotify.com/track/${props.playing.item_id}`}
-                    size={60}
+           display="flex"
+           onClick={() => {
+               window.open(`https://open.spotify.com/track/${props.playing.item_id}`, '_blank');
+           }}>
+                <SongImage
                     src={props.playing.item_image} 
                     color="#1DB954"
-                    icon={faSpotify}
                 />
                 <SpotifyInfo>
                     <Text
@@ -56,9 +57,32 @@ const Spotify = (props: { playing: Playing }) => {
                     />
                 </SpotifyInfo>
                 {/* <SongImage src={props.playing.item_image} /> */}
-        </Div>
+        </SpotifyContainer>
     );
 };
+
+const SpotifyContainer = styled(Div)`
+    position: absolute;
+    right: 0;
+    border-radius: 10px;
+    width: 400px;
+    height: 75px;
+    background-color: #var(--widget-background);
+    box-shadow: 2px 2px 20px 0px #00000086;
+    margin: 15px;
+    padding: 8px;
+    align-items: center;
+    display: flex;
+    border: 1px solid transparent;
+    border-bottom-color: #1db954;
+    border-bottom-width: 5px;
+    cursor: pointer;
+    transition: 100ms ease-in-out;
+
+    :hover {
+        border-bottom-width: 0px;
+    }
+`;
 
 const Text = styled(TextTicker)<{ size?: number }>`
   font-family: "FiraCode-Medium";
@@ -75,10 +99,15 @@ const SpotifyInfo = styled(Div)`
     flex-direction: column;
 `;
 
-const SongImage = styled.img`
+const SongImage = styled.img<{
+    color?: string;
+    link?: boolean;
+}>`
     width: 58px;
     height: 58px;
     border-radius: 5px;
+    cursor: pointer;
+    color: ${(props) => (props.color ? props.color : "var(--text)")};
 `;
 
 export default Spotify;
