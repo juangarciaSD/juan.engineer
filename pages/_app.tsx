@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { createGlobalStyle } from "styled-components";
 
 import FontStyle from "../components/fonts";
@@ -34,10 +33,6 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function Portfolio({ Component, pageProps }) {
-  axios({
-    baseURL: "https://go.juan.engineer/api"
-  })
-  
   React.useEffect(() => {
     if (localStorage.getItem("theme-name"))
       SetTheme(localStorage.getItem("theme-name") as "light" | "dark");
