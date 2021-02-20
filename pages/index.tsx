@@ -10,8 +10,6 @@ import SocialLinks from "../components/SocialLinks";
 
 import { ToggleTheme } from "../utils/theme";
 
-import Typeist from "react-typist";
-
 const Index = (props: { playing: any }) => {
     console.log(props.playing);
     return(

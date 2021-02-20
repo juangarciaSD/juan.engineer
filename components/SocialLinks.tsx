@@ -10,7 +10,7 @@ import {
     faSpotify,
     faDiscord,
   } from "@fortawesome/free-brands-svg-icons";
-  import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+//   import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 import Icon from "./icon";
 
@@ -44,14 +44,14 @@ const SocialLinks = (props: {
           link="https://dstn.to/mixtape"
         />
       </IconWrapped>
-      <IconWrapped small={props.small} last>
+      {/* <IconWrapped small={props.small} last>
         <Icon
           size={props.small ? 15 : 25}
           icon={faEnvelope}
           highlight="#1B1B1B"
           link="mailto:me@juan.engineer"
         />
-      </IconWrapped>
+      </IconWrapped> */}
     </Icons>
     );
 };
