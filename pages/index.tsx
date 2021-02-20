@@ -52,7 +52,7 @@ const Text = styled.div<DefaultProps>`
     ${DEFAULT_STYLES}
 `;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     const res = await fetch("https://go.juan.engineer/api/spotify");
     const data = await res.json();
 
