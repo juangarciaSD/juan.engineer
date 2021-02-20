@@ -18,13 +18,7 @@ const Index = (props: { playing: any }) => {
             <Navigation />
             {props.playing.is_playing && <Spotify playing={props.playing} />}
         </Div>
-        <Div
-            minHeight="100vh"
-            padding="0px 0.5rem"
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center">
+        <CenterContainer>
                 <Div
                     display="flex"
                     flexDirection="column"
@@ -42,16 +36,33 @@ const Index = (props: { playing: any }) => {
                         <SocialLinks size={100} />
                         </Div>
                 </Div>
-        </Div>
+        </CenterContainer>
         </>
     );
 };
+
+const CenterContainer = styled(Div)`
+    min-height: 100vh;
+    padding: 0px 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @media only screen and (max-width : 640px) {
+        min-height: initial;
+    }
+`;
 
 const Text = styled.div<DefaultProps>`
     color: var(--text);
     font-size: 1.3em;
     font-family: 'FiraCode-Medium';
     ${DEFAULT_STYLES}
+
+    @media only screen and (max-width : 640px) {
+        font-size: 28px;
+    }
 `;
 
 export async function getServerSideProps() {
