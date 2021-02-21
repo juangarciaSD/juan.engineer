@@ -16,7 +16,7 @@ const Index = (props: { playing: any }) => {
         <>
         <Div>
             <Navigation />
-            {props.playing.is_playing && <Spotify playing={props.playing} />}
+            {props.playing.is_playing && <Spotify float="right" position="absolute" margin={15} playing={props.playing} />}
         </Div>
         <CenterContainer>
                 <Div

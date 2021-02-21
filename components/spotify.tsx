@@ -15,22 +15,25 @@ export interface Playing {
     item_author: string;
     item_id: string;
     item_image: string;
+    id?: number;
   }
 
-const Spotify = (props: { playing: Playing }) => {
+const Spotify = (props: { playing: Playing, float: "left" | "right", position: string, margin: number }) => {
     return(
         <SpotifyContainer
-           position="absolute"
+           position={props.position}
            right="0"
            borderRadius="10px"
            width="400px"
            height="75px"
            backgroundColor="#var(--widget-background)"
            boxShadow="2px 2px 20px 0px #00000086"
-           margin="15px"
+           margin={props.margin + "px"}
            padding="8px"
            alignItems="center"
            display="flex"
+           float={props.float}
+           key={props.playing.id}
            onClick={() => {
                window.open(`https://open.spotify.com/track/${props.playing.item_id}`, '_blank');
            }}>
@@ -61,15 +64,15 @@ const Spotify = (props: { playing: Playing }) => {
     );
 };
 
-const SpotifyContainer = styled(Div)`
-    position: absolute;
-    right: 0;
+const SpotifyContainer = styled(Div)<{ float: string }>`
+    position: ${props => props.position ?? props.position};
+    ${props => props.float === "left" ? "left: 0" : "right: 0"};
     border-radius: 10px;
     width: 400px;
     height: 75px;
     background-color: #var(--widget-background);
     box-shadow: 2px 2px 20px 0px #00000086;
-    margin: 15px;
+    margin: ${props => props.margin ?? props.margin};
     padding: 8px;
     align-items: center;
     display: flex;

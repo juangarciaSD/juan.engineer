@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     background-color: var(--background)
-  }
+  }  
   html,
   body {
     padding: 0;
@@ -21,6 +21,17 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+  html, body::-webkit-scrollbar {
+    -webkit-appearance: none;
+    background: #000;
+    border-radius: 15px;
+    width: 0px;
+  }
+  html, body::-webkit-scrollbar-thumb {
+      transition: 200ms ease-in-out;
+      background-color: transparent;
+      border-radius: 15px;
+  }  
   :root {
     --text: #000000;
     --highlight-color: #127796;
