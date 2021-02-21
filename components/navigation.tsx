@@ -6,7 +6,7 @@ import Router from "next/router";
 import Div from "./Div";
 
 interface NavigationProps {
-    position?: string;
+    position?: React.CSSProperties["position"];
 }
 
 const Navigation = (props: NavigationProps) => {
