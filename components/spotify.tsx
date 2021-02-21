@@ -18,7 +18,7 @@ export interface Playing {
     id?: number;
   }
 
-const Spotify = (props: { playing: Playing, float: "left" | "right", position: string, margin: number }) => {
+const Spotify = (props: { playing: Playing, float: "left" | "right", position: React.CSSProperties["position"], margin: number }) => {
     return(
         <SpotifyContainer
            position={props.position}
