@@ -17,7 +17,7 @@ import useLanyard from "use-lanyard";
     id?: number;
 */
 const Index = (props: { playing: any }) => {
-    const [playing, setPlaying] = React.useState<Playing>({});
+    const [playing, setPlaying] = React.useState<Playing>();
     
     const { data } = useLanyard("463539578012303360");
     let spotify = data?.spotify;
