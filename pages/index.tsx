@@ -4,6 +4,7 @@ import { DefaultProps, DEFAULT_STYLES } from "../public/Defaults";
 
 import Div from "../components/Div";
 import Spotify, { Playing } from "../components/spotify";
+import Discord, { DiscordProps } from "../components/discord";
 import Profile from "../components/profile_image";
 import Navigation from '../components/navigation';
 import SocialLinks from "../components/SocialLinks";
@@ -18,25 +19,57 @@ import useLanyard from "use-lanyard";
 */
 const Index = (props: { playing: any }) => {
     const [playing, setPlaying] = React.useState<Playing>();
+    const [active, setDiscord] = React.useState<DiscordProps>();
     
+    //get data from lanyard
     const { data } = useLanyard("463539578012303360");
-    let spotify = data?.spotify;
-    
+
     React.useEffect(() => {
-        setPlaying({
-            item_name: spotify.song,
-            item_author: spotify.artist,
-            //@ts-ignore
-            item_id: spotify.track_id,
-            item_image: spotify.album_art_url
-        })
+        if(data) {
+            let file = data.activities[2].details.split(" ")[1].split(".")[1];
+            let image = "";
+            let color = "";
+            switch(file) {
+                case "js":
+                    image = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1024px-Unofficial_JavaScript_logo_2.svg.png",
+                    color = "#f7e018";
+                    break;
+                case "ts":
+                    image = "https://miro.medium.com/max/816/1*mn6bOs7s6Qbao15PMNRyOA.png";
+                    color = "#007acc";
+                    break;
+                case "tsx":
+                    image = "https://miro.medium.com/max/816/1*mn6bOs7s6Qbao15PMNRyOA.png";
+                    color = "#007acc";
+                    break;
+                case "json":
+                    image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoU78Hj6DPZq_rVh1dyNTc4Lwt_Z05Vr-SRA&usqp=CAU";
+                    color = "#fbc02d"
+                default:
+                    break;
+            }
+            setPlaying({
+                item_name: data.spotify.song,
+                item_author: data.spotify.artist,
+                //@ts-ignore
+                item_id: data.spotify.track_id,
+                item_image: data.spotify.album_art_url
+            });
+            setDiscord({
+                item_name: data.activities[2].name,
+                item_description: `${data.activities[2].state} • ${data.activities[2].details}`,
+                item_image: image,
+                item_color: color
+            });
+        }
     }, [data]);
 
     return(
         <>
         <Div>
             <Navigation />
-            {props.playing.is_playing && <Spotify float="right" position="absolute" margin={15} playing={playing} />}
+            {playing && <Spotify float="right" position="absolute" margin={15} playing={playing} />}
+            {active && <Discord position="absolute" margin={15} top="85px" active={active} />}
         </Div>
         <CenterContainer>
                 <Div
