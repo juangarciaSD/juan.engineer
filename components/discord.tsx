@@ -6,19 +6,20 @@ import TextTicker from "react-text-marquee";
 //compomnents
 import Div from "./Div";
 
-export interface Playing {
+export interface DiscordProps {
     item_name: string;
-    item_author: string;
-    item_id: string;
+    item_description: string;
     item_image: string;
-    id?: number;
-  }
+    item_color: string | "";
+}
 
-const Spotify = (props: { playing: Playing, float: "left" | "right", position: React.CSSProperties["position"], margin: number }) => {
+const Discord = (props: { active: DiscordProps, top: React.CSSProperties["top"], position: React.CSSProperties["position"], margin: number }) => {
     return(
-        <SpotifyContainer
+        <MainContainer
            position={props.position}
            right="0"
+           borderBottomColor={props.active.item_color}
+           top={props.top}
            borderRadius="10px"
            width="400px"
            height="75px"
@@ -28,18 +29,14 @@ const Spotify = (props: { playing: Playing, float: "left" | "right", position: R
            padding="8px"
            alignItems="center"
            display="flex"
-           float={props.float}
-           key={props.playing.id}
-           onClick={() => {
-               window.open(`https://open.spotify.com/track/${props.playing.item_id}`, '_blank');
-           }}>
-                <SongImage
-                    src={props.playing.item_image} 
+           float="right">
+                <Image
+                    src={props.active.item_image} 
                     color="#1DB954"
                 />
-                <SpotifyInfo>
+                <Info>
                     <Text
-                        text={props.playing.item_name}
+                        text={props.active.item_name}
                         leading={2 * 1e3}
                         trailing={3 * 1e3}
                         hoverToStop
@@ -48,19 +45,19 @@ const Spotify = (props: { playing: Playing, float: "left" | "right", position: R
 
                     <Text
                         size={10}
-                        text={props.playing.item_author}
+                        text={props.active.item_description}
                         leading={2 * 1e3}
                         trailing={3 * 1e3}
                         hoverToStop
                         loop
                     />
-                </SpotifyInfo>
-                {/* <SongImage src={props.playing.item_image} /> */}
-        </SpotifyContainer>
+                </Info>
+                {/* <Image src={props.playing.item_image} /> */}
+        </MainContainer>
     );
 };
 
-const SpotifyContainer = styled(Div)<{ float: string }>`
+const MainContainer = styled(Div)<{ float: string, borderBottomColor: string }>`
     position: ${props => props.position ?? props.position};
     ${props => props.float === "left" ? "left: 0" : "right: 0"};
     border-radius: 10px;
@@ -73,7 +70,7 @@ const SpotifyContainer = styled(Div)<{ float: string }>`
     align-items: center;
     display: flex;
     border: 1px solid transparent;
-    border-bottom-color: #1db954;
+    border-bottom-color: ${props => props.borderBottomColor};
     border-bottom-width: 5px;
     cursor: pointer;
     transition: 100ms ease-in-out;
@@ -102,12 +99,12 @@ const Text = styled(TextTicker)<{ size?: number }>`
   font-size: ${(props) => `${props.size || 15}px`};
 `;
 
-const SpotifyInfo = styled(Div)`
+const Info = styled(Div)`
     display: flex;
     flex-direction: column;
 `;
 
-const SongImage = styled.img<{
+const Image = styled.img<{
     color?: string;
     link?: boolean;
 }>`
@@ -118,4 +115,4 @@ const SongImage = styled.img<{
     color: ${(props) => (props.color ? props.color : "var(--text)")};
 `;
 
-export default Spotify;
+export default Discord;
