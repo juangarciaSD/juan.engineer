@@ -3,20 +3,40 @@ import styled from "styled-components";
 import { DefaultProps, DEFAULT_STYLES } from "../public/Defaults";
 
 import Div from "../components/Div";
-import Spotify from "../components/spotify";
+import Spotify, { Playing } from "../components/spotify";
 import Profile from "../components/profile_image";
 import Navigation from '../components/navigation';
 import SocialLinks from "../components/SocialLinks";
 
-import { ToggleTheme } from "../utils/theme";
-
+import useLanyard from "use-lanyard";
+/*
+    item_name: string;
+    item_author: string;
+    item_id: string;
+    item_image: string;
+    id?: number;
+*/
 const Index = (props: { playing: any }) => {
-    console.log(props.playing);
+    const [playing, setPlaying] = React.useState<Playing>();
+    
+    const { data } = useLanyard("463539578012303360");
+    let spotify = data?.spotify;
+    
+    React.useEffect(() => {
+        setPlaying({
+            item_name: spotify.song,
+            item_author: spotify.artist,
+            //@ts-ignore
+            item_id: spotify.track_id,
+            item_image: spotify.album_art_url
+        })
+    }, [data]);
+
     return(
         <>
         <Div>
             <Navigation />
-            {props.playing.is_playing && <Spotify float="right" position="absolute" margin={15} playing={props.playing} />}
+            {props.playing.is_playing && <Spotify float="right" position="absolute" margin={15} playing={playing} />}
         </Div>
         <CenterContainer>
                 <Div
