@@ -26,6 +26,7 @@ const Index = (props: { playing: any }) => {
         setPlaying({
             item_name: spotify.song,
             item_author: spotify.artist,
+            //@ts-ignore
             item_id: spotify.track_id,
             item_image: spotify.album_art_url
         })
