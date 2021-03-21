@@ -23,7 +23,8 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-text-marquee": "^1.0.1",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "use-lanyard": "^0.0.5"
   },
   "main": "index.js",
   "author": "Juan Garcia <me@juan.engineer>",
