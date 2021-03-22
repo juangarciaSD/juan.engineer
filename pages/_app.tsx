@@ -37,6 +37,7 @@ const GlobalStyle = createGlobalStyle`
     --highlight-color: #127796;
     --widget-background: #ffffff;
     --background: #ffffff;
+    --border: #3854FC;
   }
   .__react_component_tooltip {
     box-shadow: 2px 2px 10px 0px #00000026;

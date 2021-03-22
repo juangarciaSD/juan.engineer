@@ -4,12 +4,14 @@ const themes = {
       "highlight-color": "#127796",
       "widget-background": "#000000",
       background: "#181a1b",
+      border: "#3854FC"
     },
     light: {
       text: "#000000",
       "highlight-color": "#127796",
       "widget-background": "#ffffff",
       background: "#ffffff",
+      border: "#3854FC"
     },
   };
   
