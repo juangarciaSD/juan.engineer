@@ -16,7 +16,7 @@ export interface Playing {
 const Playback = () => {
     const [value, setValue] = React.useState<string>("");
     const [songs, setSongs] = React.useState<Playing[]>([]);
-    const [artist, setArtist] = React.useState<string>();
+    const [isSearch, setSearch] = React.useState<boolean>(false);
 
     async function handleSearch() {
         const res = await fetch(`https://api.juan.engineer/api/spotify/search?q=${encodeURIComponent(value)}`);
@@ -32,6 +32,7 @@ const Playback = () => {
             }
             setSongs(prev => [...prev, item]);
         });
+        setSearch(true);
     };
 
     function handleKey(e) {
@@ -67,7 +68,7 @@ const Playback = () => {
                 alignItems="center"
                 justifyContent="center"
                 overflowY="auto">
-                    {songs && songs.map((elem, idx) => (
+                    {songs.length != 0 ? songs.map((elem, idx) => (
                         <MusicItem>
                             <MusicImage src={elem.item_image} />
                             <MusicDetails>
@@ -77,7 +78,7 @@ const Playback = () => {
                             <Spacer />
                             <Button onClick={() => handlePlay(elem)}>Play</Button>
                         </MusicItem>
-                    ))}
+                    )) : isSearch ? <span>No songs found</span> : <span>Search a song...</span>}
             </Div>
         </Div>
         </>
