@@ -10,13 +10,7 @@ import Navigation from '../components/navigation';
 import SocialLinks from "../components/SocialLinks";
 
 import useLanyard from "use-lanyard";
-/*
-    item_name: string;
-    item_author: string;
-    item_id: string;
-    item_image: string;
-    id?: number;
-*/
+
 const Index = (props: { playing: any }) => {
     const [playing, setPlaying] = React.useState<Playing>();
     const [active, setDiscord] = React.useState<DiscordProps>();
@@ -51,7 +45,6 @@ const Index = (props: { playing: any }) => {
             setPlaying({
                 item_name: data.spotify.song,
                 item_author: data.spotify.artist,
-                //@ts-ignore
                 item_id: data.spotify.track_id,
                 item_image: data.spotify.album_art_url
             });
