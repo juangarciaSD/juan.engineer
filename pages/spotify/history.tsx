@@ -11,7 +11,6 @@ const History = (props: { data, playing }) => {
         <Div
             height="6rem"
             maxHeight="6rem">
-            <Navigation position="fixed"/>
             {props.playing.is_playing && <Spotify float="right" position="fixed" margin={15} playing={props.playing} />}
         </Div>
         <Div

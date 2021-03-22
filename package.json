@@ -20,6 +20,7 @@
     "next": "10.0.4",
     "next-fonts": "^1.5.1",
     "next-images": "^1.6.2",
+    "node-fetch": "^2.6.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-text-marquee": "^1.0.1",

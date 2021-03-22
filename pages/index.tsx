@@ -6,7 +6,6 @@ import Div from "../components/Div";
 import Spotify, { Playing } from "../components/spotify";
 import Discord, { DiscordProps } from "../components/discord";
 import Profile from "../components/profile_image";
-import Navigation from '../components/navigation';
 import SocialLinks from "../components/SocialLinks";
 
 import useLanyard from "use-lanyard";
@@ -60,7 +59,6 @@ const Index = (props: { playing: any }) => {
     return(
         <>
         <Div>
-            <Navigation />
             {playing && <Spotify float="right" position="absolute" margin={15} playing={playing} />}
             {active && <Discord position="absolute" margin={15} top="85px" active={active} />}
         </Div>
