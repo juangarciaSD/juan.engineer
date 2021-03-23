@@ -1,8 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import fetch from "node-fetch";
+import * as fetch from "node-fetch";
+import axios from "axios";
+import qs from "querystring";
 
 import Div from "../components/Div";
+import Loading from "../components/loader";
 import Spotify from "../components/spotify";
 
 export interface Playing {
@@ -10,15 +13,41 @@ export interface Playing {
     item_author: string;
     item_id: string;
     item_image: string;
+    item_url: string;
     id?: number;
   }
 
-const Playback = () => {
+  interface DevicesRes {
+    id: string;
+    is_active: boolean;
+    is_private_session: boolean;
+    is_restricted: boolean;
+    name: string;
+    type: string;
+    volume_percent: number;
+  }
+
+const Playback = (props: { devices }) => {
+    const [loading, isLoading] = React.useState<boolean>(false);
+    const [display, isDisplay] = React.useState<boolean>(false);
     const [value, setValue] = React.useState<string>("");
     const [songs, setSongs] = React.useState<Playing[]>([]);
     const [isSearch, setSearch] = React.useState<boolean>(false);
+    const [devices, setDevices] = React.useState<DevicesRes[]>([]);
+    
+    //selected items
+    const [selectedDevice, setSelectedDevice] = React.useState<DevicesRes>();
+
+    React.useEffect(() => {
+        props.devices.map((elem, idx) => {
+            console.log(elem)
+            setDevices(prev => [...prev, elem])
+        });
+    }, [props.devices]);
 
     async function handleSearch() {
+        isLoading(true);
+        setSongs([]);
         const res = await fetch(`https://api.juan.engineer/api/spotify/search?q=${encodeURIComponent(value)}`);
         const data = await res.json();
         data.data.map((elem, idx) => {
@@ -28,11 +57,13 @@ const Playback = () => {
                     return `${elem.name}, `
                 }),
                 item_id: elem.uri,
-                item_image: elem.album.images[2].url
+                item_image: elem.album.images[2].url,
+                item_url: elem.external_urls.spotify
             }
             setSongs(prev => [...prev, item]);
         });
         setSearch(true);
+        isLoading(false);
     };
 
     function handleKey(e) {
@@ -40,7 +71,19 @@ const Playback = () => {
     }
 
     async function handlePlay(item: Playing) {
-
+        console.log(selectedDevice.id, item.item_id)
+        const res = await axios({
+            method: "POST",
+            url: `https://api.juan.engineer/api/spotify/playback?state=pause&device_id=${selectedDevice.id}`,
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            data: {
+                uris: [item.item_id]
+            }
+        });
+        console.log(res?.data);
     };
 
     return(
@@ -57,20 +100,35 @@ const Playback = () => {
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
-                overflowY="auto"
-                marginBottom="20px">
+                overflowY="hidden"
+                marginBottom="10px">
                     <Input value={value} onChange={e => setValue(e.target.value)} onKeyDown={handleKey} placeholder="Search..." type="text" />
-                    <Button onClick={handleSearch}>Search</Button>
+                    {loading ? <Loading loading={true} /> : <Button onClick={handleSearch}>Search</Button>}
             </Div>
+            <DropdownContainer onClick={() => isDisplay(!display)}>
+                <p style={{ padding: "5px 10px", margin: "5px" }}>{selectedDevice ? selectedDevice.name : "Select Device"}</p>
+                <DropdownContent display={display}>
+                    {devices.map((elem, idx) => (
+                        <div style={{ display: "flex", flexDirection: "row" }}>
+                            <p style={{ padding: "5px 10px", margin: 0 }} onClick={() => setSelectedDevice(elem)} >{elem.name}</p>
+                            <Spacer />
+                            <DeviceStatus active={elem.is_active} />
+                        </div>
+                    ))}
+                </DropdownContent>
+            </DropdownContainer>
             <Div
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
                 justifyContent="center"
-                overflowY="auto">
+                overflowY="auto"
+                color="var(--text)">
                     {songs.length != 0 ? songs.map((elem, idx) => (
                         <MusicItem>
-                            <MusicImage src={elem.item_image} />
+                            <a href={elem.item_url} target="_blank">
+                                <MusicImage src={elem.item_image} />
+                            </a>
                             <MusicDetails>
                                 <MusicTitle>{elem.item_name}</MusicTitle>
                                 <MusicArtist>{elem.item_author}</MusicArtist>
@@ -84,6 +142,30 @@ const Playback = () => {
         </>
     );
 };
+
+const DropdownContainer = styled.div`
+    display: inline-block;
+    position: relative;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin: auto;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 10px;
+`;
+
+const DropdownContent = styled.div<{ display: boolean }>`
+    display: ${props => props.display ? "block" : "none"};
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    width: 225px;
+    cursor: pointer;
+`;
 
 const Input = styled.input`
     font-size: 14px;
@@ -115,6 +197,21 @@ const Button = styled.button`
 
     &:hover {
         opacity: 0.7;
+    }
+`;
+
+const DeviceStatus = styled.div<{ active: boolean }>`
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: auto;
+    background-color: ${props => props.active ? `#006400` : `#e0dcdc`};
+    ${props => props.active ? `animation: flash 2s linear infinite;` : null}
+
+    @keyframes flash {
+        50% {
+            opacity: 0.5;
+        }
     }
 `;
 
@@ -150,5 +247,16 @@ const MusicTitle = styled.h1`
 const MusicArtist = styled.span`
     font-size: 12px;
 `;
+
+export async function getServerSideProps() {
+    const res = await fetch("https://go.juan.engineer/api/spotify?type=getDevices");
+    const data = await res.json();
+
+    return {
+        props: {
+            devices: data
+        }
+    }
+};
 
 export default Playback;
