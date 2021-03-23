@@ -106,7 +106,7 @@ const Playback = (props: { devices, playing }) => {
         <Div
             height="6rem"
             maxHeight="6rem">
-                {playing ? <Spotify float="right" position="absolute" margin={15} playing={playing} /> : null}}
+                {playing ? <Spotify float="right" position="absolute" margin={15} playing={playing} /> : null}
         </Div>
         <Div
             display="flex"
