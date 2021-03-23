@@ -25,7 +25,7 @@ const SocialLinks = (props: {
           size={props.small ? 15 : 25}
           icon={faTwitter}
           highlight="#1DA1F2"
-          link="https://go.juan.engineer/twitter"
+          link="https://go.juan.engineer/social?type=twitter"
         />
       </IconWrapped>
       <IconWrapped small={props.small}>
@@ -33,7 +33,7 @@ const SocialLinks = (props: {
           size={props.small ? 15 : 25}
           icon={faGithubAlt}
           highlight="#333333"
-          link="https://go.juan.engineer/github"
+          link="https://go.juan.engineer/social?type=github"
         />
       </IconWrapped>
       <IconWrapped small={props.small}>
