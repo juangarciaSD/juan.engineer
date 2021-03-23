@@ -37,33 +37,36 @@ const Playback = (props: { devices }) => {
     
     //selected items
     const [selectedDevice, setSelectedDevice] = React.useState<DevicesRes>();
+    const [selectedSong, setSelectedSong] = React.useState<Playing>();
 
     React.useEffect(() => {
         props.devices.map((elem, idx) => {
             console.log(elem)
-            setDevices(prev => [...prev, elem])
+            if(!devices.includes(elem)) setDevices(prev => [...prev, elem]);
         });
     }, [props.devices]);
 
     async function handleSearch() {
-        isLoading(true);
-        setSongs([]);
-        const res = await fetch(`https://api.juan.engineer/api/spotify/search?q=${encodeURIComponent(value)}`);
-        const data = await res.json();
-        data.data.map((elem, idx) => {
-            let item = {
-                item_name: elem.name,
-                item_author: elem.album.artists.map((elem, idx) => {
-                    return `${elem.name}, `
-                }),
-                item_id: elem.uri,
-                item_image: elem.album.images[2].url,
-                item_url: elem.external_urls.spotify
-            }
-            setSongs(prev => [...prev, item]);
-        });
-        setSearch(true);
-        isLoading(false);
+        if(value != "") {
+            isLoading(true);
+            setSongs([]);
+            const res = await fetch(`https://api.juan.engineer/api/spotify/search?q=${encodeURIComponent(value)}`);
+            const data = await res.json();
+            data.data.map((elem, idx) => {
+                let item = {
+                    item_name: elem.name,
+                    item_author: elem.album.artists.map((elem, idx) => {
+                        return `${elem.name}, `
+                    }),
+                    item_id: elem.uri,
+                    item_image: elem.album.images[2].url,
+                    item_url: elem.external_urls.spotify
+                }
+                setSongs(prev => [...prev, item]);
+            });
+            setSearch(true);
+            isLoading(false);
+        }
     };
 
     function handleKey(e) {
@@ -72,6 +75,7 @@ const Playback = (props: { devices }) => {
 
     async function handlePlay(item: Playing) {
         console.log(selectedDevice.id, item.item_id)
+        setSelectedSong(item);
         const res = await axios({
             method: "POST",
             url: `https://api.juan.engineer/api/spotify/play?device_id=${selectedDevice.id}`,
@@ -84,6 +88,7 @@ const Playback = (props: { devices }) => {
             }
         });
         console.log(res?.data);
+        setSelectedSong(null);
     };
 
     return(
@@ -134,7 +139,7 @@ const Playback = (props: { devices }) => {
                                 <MusicArtist>{elem.item_author}</MusicArtist>
                             </MusicDetails>
                             <Spacer />
-                            <Button onClick={() => handlePlay(elem)}>Play</Button>
+                            {elem.item_id === selectedSong?.item_id ? <Loading loading={true} /> : <Button onClick={() => handlePlay(elem)}>Play</Button>}
                         </MusicItem>
                     )) : isSearch ? <span>No songs found</span> : <span>Search a song...</span>}
             </Div>
