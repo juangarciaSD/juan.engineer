@@ -74,7 +74,7 @@ const Playback = (props: { devices }) => {
         console.log(selectedDevice.id, item.item_id)
         const res = await axios({
             method: "POST",
-            url: `https://api.juan.engineer/api/spotify/playback?state=pause&device_id=${selectedDevice.id}`,
+            url: `https://api.juan.engineer/api/spotify/play?device_id=${selectedDevice.id}`,
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
