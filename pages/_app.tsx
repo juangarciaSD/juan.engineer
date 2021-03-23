@@ -2,6 +2,8 @@ import React from "react";
 import { createGlobalStyle } from "styled-components";
 import useLanyard from "use-lanyard";
 
+import AppContext, { AppProvider } from "../utils/AppContext";
+
 import FontStyle from "../components/fonts";
 import { SetTheme } from "../utils/theme";
 
@@ -48,18 +50,22 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function Portfolio({ Component, pageProps }) {
+  const context = React.useContext(AppContext);
+
   React.useEffect(() => {
     if (localStorage.getItem("theme-name"))
       SetTheme(localStorage.getItem("theme-name") as "light" | "dark");
   }, []);
 
   const [playing, setPlaying] = React.useState<Playing>();
+  const [lanyardData, setLanyardData] = React.useState(null);
 
   //get data from lanyard
-  const { data } = useLanyard("463539578012303360");
+  const { data, revalidate } = useLanyard("463539578012303360");
 
   React.useEffect(() => {
     console.log(data)
+    setLanyardData(data);
     if(data?.listening_to_spotify) {
         setPlaying({
             item_name: data.spotify?.song,
@@ -79,9 +85,16 @@ function Portfolio({ Component, pageProps }) {
     <>
     <FontStyle />
     <GlobalStyle />
-    <Navigation />
-    {playing && <Spotify float="right" position="absolute" margin={15} playing={playing} />}
-    <Component {...pageProps} />
+    <AppProvider value={{
+      data: lanyardData,
+      revalidate: () => {
+        revalidate()
+      }
+    }} >
+      <Navigation />
+      {playing && <Spotify float="right" position="absolute" margin={15} playing={playing} />}
+      <Component {...pageProps} />
+    </AppProvider>
     <Footer />
     </>
   )

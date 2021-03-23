@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import * as fetch from "node-fetch";
 import axios from "axios";
-import qs from "querystring";
+import AppContext from "../utils/AppContext";
 
 import Div from "../components/Div";
 import Loading from "../components/loader";
@@ -28,6 +28,8 @@ export interface Playing {
   }
 
 const Playback = (props: { devices }) => {
+    const context = React.useContext(AppContext);
+
     const [loading, isLoading] = React.useState<boolean>(false);
     const [display, isDisplay] = React.useState<boolean>(false);
     const [value, setValue] = React.useState<string>("");
@@ -36,12 +38,11 @@ const Playback = (props: { devices }) => {
     const [devices, setDevices] = React.useState<DevicesRes[]>([]);
     
     //selected items
-    const [selectedDevice, setSelectedDevice] = React.useState<DevicesRes>();
+    const [selectedDevice, setSelectedDevice] = React.useState<DevicesRes>(devices?.[0]);
     const [selectedSong, setSelectedSong] = React.useState<Playing>();
 
     React.useEffect(() => {
         props.devices.map((elem, idx) => {
-            console.log(elem)
             if(!devices.includes(elem)) setDevices(prev => [...prev, elem]);
         });
     }, [props.devices]);
@@ -74,7 +75,7 @@ const Playback = (props: { devices }) => {
     }
 
     async function handlePlay(item: Playing) {
-        console.log(selectedDevice.id, item.item_id)
+        context.revalidate();
         setSelectedSong(item);
         const res = await axios({
             method: "POST",
@@ -87,7 +88,6 @@ const Playback = (props: { devices }) => {
                 uris: [item.item_id]
             }
         });
-        console.log(res?.data);
         setSelectedSong(null);
     };
 
