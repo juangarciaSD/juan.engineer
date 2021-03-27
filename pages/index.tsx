@@ -31,6 +31,9 @@ const Index = (props: { playing: any }) => {
                             fontSize="35px">
                             Juan Garcia
                         </Text>
+                        <Text>
+                            I’m a 17 year old front-end software engineer.
+                        </Text>
                         <SocialLinks size={100} />
                         </Div>
                 </Div>
