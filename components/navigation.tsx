@@ -15,9 +15,9 @@ const Navigation = (props: NavigationProps) => {
                 <Link href="/" passHref>
                     <NavLink>Home</NavLink>
                 </Link>
-                <Link href="/spotify/history" passHref>
+                {/* <Link href="/spotify/history" passHref>
                     <NavLink>Spotify History</NavLink>
-                </Link>
+                </Link> */}
         </NavigationContainer>
     );
 };
