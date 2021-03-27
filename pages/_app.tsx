@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { createGlobalStyle } from "styled-components";
 import useLanyard from "use-lanyard";
 
@@ -57,6 +58,8 @@ function Portfolio({ Component, pageProps }) {
       SetTheme(localStorage.getItem("theme-name") as "light" | "dark");
   }, []);
 
+  const router = useRouter();
+
   const [playing, setPlaying] = React.useState<Playing>();
   const [lanyardData, setLanyardData] = React.useState(null);
 
@@ -64,7 +67,6 @@ function Portfolio({ Component, pageProps }) {
   const { data, revalidate } = useLanyard("463539578012303360");
 
   React.useEffect(() => {
-    console.log(data)
     setLanyardData(data);
     if(data?.listening_to_spotify) {
         setPlaying({
@@ -79,7 +81,8 @@ function Portfolio({ Component, pageProps }) {
             setPlaying(null);
         }
     };
-  }, [data]);
+  }, [data, lanyardData]);
+
 
   return (
     <>
@@ -87,12 +90,13 @@ function Portfolio({ Component, pageProps }) {
     <GlobalStyle />
     <AppProvider value={{
       data: lanyardData,
-      revalidate: () => {
-        revalidate()
+      revalidate: async() => {
+        revalidate();
+        setLanyardData(context)
       }
     }} >
       <Navigation />
-      {playing && <Spotify float="right" position="absolute" margin={15} playing={playing} />}
+      {playing && router.pathname != "/playback" ? <Spotify float="right" position="absolute" margin={15} playing={playing} /> : null}
       <Component {...pageProps} />
     </AppProvider>
     <Footer />

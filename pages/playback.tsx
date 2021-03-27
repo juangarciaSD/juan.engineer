@@ -27,7 +27,7 @@ export interface Playing {
     volume_percent: number;
   }
 
-const Playback = (props: { devices }) => {
+const Playback = (props: { devices, playing }) => {
     const context = React.useContext(AppContext);
 
     const [loading, isLoading] = React.useState<boolean>(false);
@@ -37,6 +37,8 @@ const Playback = (props: { devices }) => {
     const [isSearch, setSearch] = React.useState<boolean>(false);
     const [devices, setDevices] = React.useState<DevicesRes[]>([]);
     
+    const [playing, setPlaying] = React.useState(props.playing);
+
     //selected items
     const [selectedDevice, setSelectedDevice] = React.useState<DevicesRes>(devices?.[0]);
     const [selectedSong, setSelectedSong] = React.useState<Playing>();
@@ -48,6 +50,7 @@ const Playback = (props: { devices }) => {
     }, [props.devices]);
 
     async function handleSearch() {
+        context.revalidate();
         if(value != "") {
             isLoading(true);
             setSongs([]);
@@ -74,8 +77,14 @@ const Playback = (props: { devices }) => {
         if(e.keyCode === 13) handleSearch();
     }
 
+    async function handleSpotifyStatus() {
+        const res = await fetch("https://go.juan.engineer/api/spotify");
+        const data = await res.json();
+        setPlaying(data);
+        return data;
+    }
+
     async function handlePlay(item: Playing) {
-        context.revalidate();
         setSelectedSong(item);
         const res = await axios({
             method: "POST",
@@ -88,6 +97,7 @@ const Playback = (props: { devices }) => {
                 uris: [item.item_id]
             }
         });
+        if(res) handleSpotifyStatus();
         setSelectedSong(null);
     };
 
@@ -96,6 +106,7 @@ const Playback = (props: { devices }) => {
         <Div
             height="6rem"
             maxHeight="6rem">
+                {playing ? <Spotify float="right" position="absolute" margin={15} playing={playing} /> : null}
         </Div>
         <Div
             display="flex"
@@ -254,12 +265,15 @@ const MusicArtist = styled.span`
 `;
 
 export async function getServerSideProps() {
+    const spotifyRes = await fetch("https://go.juan.engineer/api/spotify");
     const res = await fetch("https://go.juan.engineer/api/spotify?type=getDevices");
+    const spotifyData = await spotifyRes.json();
     const data = await res.json();
 
     return {
         props: {
-            devices: data
+            devices: data,
+            playing: spotifyData
         }
     }
 };
